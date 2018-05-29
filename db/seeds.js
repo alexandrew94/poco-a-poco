@@ -13,17 +13,23 @@ mongoose.connect(dbURI, (err, db) => {
     email: 'a@a',
     username: 'a',
     password: 'a',
-    passwordConfirmation: 'a'
+    passwordConfirmation: 'a',
+    instruments: [{name: 'violin'}, {name: 'piano'}],
+    accountCreated: '2018-05-20'
   }, {
     email: 'b@b',
     username: 'b',
     password: 'b',
-    passwordConfirmation: 'b'
+    passwordConfirmation: 'b',
+    instruments: [{name: 'violin'}],
+    accountCreated: '2018-05-20'
   }, {
     email: 'c@c',
     username: 'c',
     password: 'c',
-    passwordConfirmation: 'c'
+    passwordConfirmation: 'c',
+    instruments: [{name: 'violin'}],
+    accountCreated: '2018-05-20'
   }])
     .then(users => {
       console.log(`${users.length} users created`);
@@ -34,12 +40,14 @@ mongoose.connect(dbURI, (err, db) => {
         composer: 'composer1',
         description: 'description1',
         user: seededUsers[0],
+        instrument: 'piano',
+        startedAt: '2018-05-28',
         diary: [{
-          timeLogged: 'Today',
+          timeLogged: '2018-05-28',
           timePracticed: 10,
           notes: 'diaryentry1'
         }, {
-          timeLogged: 'Today',
+          timeLogged: '2018-05-27',
           timePracticed: 20,
           notes: 'diaryentry2'
         }]
@@ -47,16 +55,29 @@ mongoose.connect(dbURI, (err, db) => {
         title: 'piece2',
         composer: 'composer2',
         description: 'description2',
-        user: seededUsers[0]
+        instrument: 'violin',
+        user: seededUsers[0],
+        startedAt: '2018-05-26',
+        diary: [{
+          timeLogged: '2018-05-26',
+          timePracticed: 10,
+          notes: 'diaryentry3'
+        }, {
+          timeLogged: '2018-05-25',
+          timePracticed: 20,
+          notes: 'diaryentry4'
+        }]
       }, {
         title: 'piece3',
         composer: 'composer3',
         description: 'description3',
+        instrument: 'violin',
         user: seededUsers[1]
       }, {
         title: 'piece4',
         composer: 'composer4',
         description: 'description4',
+        instrument: 'violin',
         user: seededUsers[1]
       }])
         .then(users => {

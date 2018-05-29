@@ -1,0 +1,16 @@
+// IMPORTING BULMA INITIAL VARIABLES
+@import '~bulma/sass/utilities/initial-variables';
+
+// IMPORTING VARIABLES
+@import 'variables';
+
+// IMPORTING BULMA
+@import '~bulma';
+
+// IMPORTING COMPONENTS
+@import 'components/base';
+@import 'components/navbar';
+
+// IMPORTING PROFILE PAGE COMPONENTS
+@import 'components/profile/header';
+@import 'components/profile/stats';

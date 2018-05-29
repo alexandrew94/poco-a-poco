@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  instruments: [],
+  accountCreated: String
 });
 
 userSchema.virtual('pieces', {
@@ -43,6 +45,56 @@ userSchema
       return totalPracticedArray.reduce((a, i) => a + i, 0);
     }
   });
+
+userSchema
+  .virtual('practiceLog')
+  .get(function () {
+    const practiceLogObject = {};
+    if(this.pieces) {
+      this.pieces.forEach(piece => {
+        piece.diary.forEach(diaryEntry => {
+          if (Object.keys(practiceLogObject).includes(diaryEntry.timeLogged)) {
+            practiceLogObject[diaryEntry.timeLogged] += diaryEntry.timePracticed;
+          } else {
+            practiceLogObject[diaryEntry.timeLogged] = diaryEntry.timePracticed;
+          }
+        });
+      });
+      return practiceLogObject;
+    }
+  });
+
+userSchema
+  .virtual('composersLog')
+  .get(function () {
+    const composersLogObject = {};
+    if(this.pieces) {
+      this.pieces.forEach(piece => {
+        piece.diary.forEach(diaryEntry => {
+          if (Object.keys(composersLogObject).includes(piece.composer)) {
+            composersLogObject[piece.composer] += diaryEntry.timePracticed;
+          } else {
+            composersLogObject[piece.composer] = diaryEntry.timePracticed;
+          }
+        });
+      });
+      return composersLogObject;
+    }
+  });
+
+userSchema
+  .post('init', function calculateInstruments(){
+    this.instruments.forEach(instrument => {
+      let playingTime = 0;
+      if (this.pieces) {
+        this.pieces.forEach(piece => {
+          piece.instrument === instrument.name ? playingTime += piece.totalPracticed : null;
+        });
+      }
+      return Object.assign(instrument, { ...instrument, playingTime });
+    });
+  });
+
 
 userSchema
   .pre('validate', function checkPassword(next){

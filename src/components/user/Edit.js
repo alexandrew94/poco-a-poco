@@ -18,6 +18,20 @@ class Profile extends React.Component {
     this.setState({ editedUser: { ...this.state.editedUser, [name]: value }});
   }
 
+  handleInstrumentClick = ({ target: { value } }) => {
+    if (this.state.editedUser.instruments.map(instrument => instrument.name).includes(value)) {
+      const newInstrumentArray = this.state.editedUser.instruments.filter(instrument => {
+        return instrument.name !== value;
+      });
+      return this.setState({ editedUser: { ...this.state.editedUser, instruments: newInstrumentArray }});
+    }
+    return this.setState({ editedUser: { ...this.state.editedUser, instruments: [ ...this.state.editedUser.instruments, { name: value }]}});
+  }
+
+  checkInstrument = value => {
+    return this.state.user.instruments.map(instrument => instrument.name).includes(value);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     axios
@@ -46,6 +60,13 @@ class Profile extends React.Component {
                 value={this.state.editedUser.email}
                 onChange={this.handleChange}
               />
+              <div>
+                <h4>Select your instruments:</h4>
+                <label><input defaultChecked={this.checkInstrument('piano')} onClick={this.handleInstrumentClick} type="checkbox" value="piano"/>Piano</label>
+                <label><input defaultChecked={this.checkInstrument('violin')} onClick={this.handleInstrumentClick} type="checkbox" value="violin"/>Violin</label>
+                <label><input defaultChecked={this.checkInstrument('guitar')} onClick={this.handleInstrumentClick} type="checkbox" value="guitar"/>Guitar</label>
+                <label><input defaultChecked={this.checkInstrument('voice')} onClick={this.handleInstrumentClick} type="checkbox" value="voice"/>Voice</label>
+              </div>
               <button onClick={this.handleSubmit}>Save Changes</button>
             </div>
           }

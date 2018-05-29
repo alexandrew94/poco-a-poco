@@ -8,7 +8,9 @@ class diariesCreate extends React.Component {
   state = {
     displayDate: null,
     expandedMode: false,
-    newEntry: {}
+    newEntry: {
+      timeLogged: moment().format('YYYY-MM-DD')
+    }
   }
 
   componentDidMount() {
@@ -16,7 +18,6 @@ class diariesCreate extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    name === 'timeLogged' ? this.generateDisplayDate(value) : null;
     this.setState({ newEntry: { ...this.state.newEntry, [name]: value }});
   }
 

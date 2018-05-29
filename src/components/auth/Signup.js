@@ -1,10 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import Auth from '../../lib/Auth';
 
 class Signup extends React.Component {
 
-  state = {};
+  state = {
+    instruments: [],
+    accountCreated: moment().format('YYYY-MM-DD')
+  };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
@@ -21,6 +25,16 @@ class Signup extends React.Component {
       .catch(() => {
         this.props.handleRedirect();
       });
+  }
+
+  handleInstrumentClick = ({ target: { value } }) => {
+    if (this.state.instruments.map(instrument => instrument.name).includes(value)) {
+      const newInstrumentArray = this.state.instruments.filter(instrument => {
+        return instrument.name !== value;
+      });
+      return this.setState({ instruments: newInstrumentArray });
+    }
+    return this.setState({ instruments: [ ...this.state.instruments, { name: value }]});
   }
 
   render() {
@@ -51,6 +65,13 @@ class Signup extends React.Component {
           placeholder="Password Confirmation"
           onChange={this.handleChange}
         />
+        <div>
+          <h4>Select your instruments:</h4>
+          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="piano"/>Piano</label>
+          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="violin"/>Violin</label>
+          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="guitar"/>Guitar</label>
+          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="voice"/>Voice</label>
+        </div>
         <button>Sign Up</button>
       </form>
     );

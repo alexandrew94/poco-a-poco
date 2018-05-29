@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import 'bulma';
+
+import './scss/main.scss';
+
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 
@@ -12,15 +16,16 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <main>
+        <div>
           <Navbar />
-          <h1>Poco a Poco</h1>
-          <Switch>
-            <Route path="/profile/edit" component={EditProfile} />
-            <Route path="/profile" component={Profile} />
-            <Route exact path="/" component={Home} />
-          </Switch>
-        </main>
+          <main>
+            <Switch>
+              <Route path="/profile/edit" component={EditProfile} />
+              <Route path="/profile" component={Profile} />
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </main>
+        </div>
       </Router>
     );
   }
