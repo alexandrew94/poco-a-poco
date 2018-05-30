@@ -71,14 +71,16 @@ class diariesShow extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="diary-entries">
         { this.state.mode === 'show' &&
           <div>
             {this.state.entry &&
               <div>
-                <h4>{this.generateDiaryDisplayDate(this.state.entry.timeLogged)}, you practiced {this.state.entry.timePracticed} mins</h4>
-                <p>{this.state.entry.shortNotes}</p>
-                <button onClick={this.handleShowDetails}>Show details</button>
+                <h4><strong>{this.generateDiaryDisplayDate(this.state.entry.timeLogged)}, you practiced {this.state.entry.timePracticed} mins</strong></h4>
+                { this.state.entry.shortNotes && <p>{this.state.entry.shortNotes}</p>}
+                <button className="show-details" onClick={this.handleShowDetails}>
+                  <i className="fas fa-ellipsis-h"></i>
+                </button>
               </div>
             }
           </div>
@@ -87,26 +89,32 @@ class diariesShow extends React.Component {
           <div>
             {this.state.entry &&
               <div>
-                <h4>{this.generateDiaryDisplayDate(this.state.entry.timeLogged)}, you practiced {this.state.entry.timePracticed} mins</h4>
-                <p>{this.state.entry.notes}</p>
-                <button onClick={this.handleOpenEditMode}>Edit this entry</button>
-                <button onClick={this.handleCloseDetails}>Close details</button>
+                <h4><strong>{this.generateDiaryDisplayDate(this.state.entry.timeLogged)}, you practiced {this.state.entry.timePracticed} mins</strong></h4>
+                { this.state.entry.notes && <p>{this.state.entry.notes}</p>}
+                <button className="edit" onClick={this.handleOpenEditMode}>
+                  <i className="fas fa-edit"></i>&nbsp;Edit
+                </button>
+                <button className="show-details" onClick={this.handleCloseDetails}>
+                  <i className="fas fa-times"></i>
+                </button>
               </div>
             }
           </div>
         }
         { this.state.mode === 'edit' &&
-          <form>
-            <input type="date" name='timeLogged' value={this.state.editedEntry.timeLogged} onChange={this.handleChange}/>
-            { this.state.displayDate &&
-              <small>({this.state.displayDate})</small>
-            }
-            <input name='timePracticed' value={this.state.editedEntry.timePracticed} onChange={this.handleChange}/>
-            <textarea name='notes' value={this.state.editedEntry.notes} onChange={this.handleChange}/>
-            <button onClick={this.handleSubmit}>Save changes</button>
-            <button onClick={this.handleDelete}>Delete this entry</button>
-            <button onClick={this.handleCloseEditMode}>Close without saving</button>
-          </form>
+          <div className="diary-form">
+            <form>
+              <input type="date" name='timeLogged' value={this.state.editedEntry.timeLogged} onChange={this.handleChange}/>
+              { this.state.displayDate &&
+                <small>({this.state.displayDate})</small>
+              }
+              <input name='timePracticed' value={this.state.editedEntry.timePracticed} onChange={this.handleChange}/>
+              <textarea name='notes' value={this.state.editedEntry.notes} onChange={this.handleChange}/>
+              <button onClick={this.handleSubmit}>Save changes</button>
+              <button onClick={this.handleDelete}>Delete this entry</button>
+              <button onClick={this.handleCloseEditMode}>Close without saving</button>
+            </form>
+          </div>
         }
       </div>
     );

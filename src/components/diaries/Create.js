@@ -18,6 +18,9 @@ class diariesCreate extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
+    if (name === 'timeLogged') {
+      this.setState({ newEntry: { ...this.state.newEntry, displayDate: this.generateDisplayDate(value)}});
+    }
     this.setState({ newEntry: { ...this.state.newEntry, [name]: value }});
   }
 
@@ -50,23 +53,41 @@ class diariesCreate extends React.Component {
 
   render () {
     return(
-      <div>
+      <div className="diary-create">
         <form>
-          <input type="date" name="timeLogged" onChange={this.handleChange} value={moment().format('YYYY-MM-DD')}/>
-          { this.state.displayDate &&
-            <small>({this.state.displayDate})</small>
-          }
-          <input name="timePracticed" placeholder="Time Practiced" onChange={this.handleChange} value={this.state.newEntry.timePracticed || ''}/>
-          { !this.state.expandedMode &&
-            <button onClick={this.openExpandedMode}>Include practice notes</button>
-          }
+          <div className="input-section">
+            <label htmlFor="timeLogged">Date Practiced:</label>
+            <input type="date" name="timeLogged" onChange={this.handleChange} value={moment().format('YYYY-MM-DD')}/>
+            { this.state.displayDate &&
+              <small>({this.state.displayDate})</small>
+            }
+          </div>
+          <div className="input-section">
+            <label htmlFor="timePracticed">Minutes Practiced:</label>
+            <input name="timePracticed" placeholder="Minutes Practiced" onChange={this.handleChange} value={this.state.newEntry.timePracticed || ''}/>
+            { !this.state.expandedMode &&
+              <button className="button" onClick={this.openExpandedMode}>
+                <i className="fas fa-book"></i>
+                &nbsp;
+                Include Practice Notes
+              </button>
+            }
+          </div>
           { this.state.expandedMode &&
-            <div>
+            <div className="practice-notes">
               <textarea name="notes" placeholder="Practice Notes" onChange={this.handleChange} value={this.state.newEntry.notes || ''}/>
-              <button onClick={this.closeExpandedMode}>Don&apos;t include practice notes</button>
+              <button onClick={this.closeExpandedMode}>
+                <i className="fas fa-times"></i>
+                &nbsp;
+                Don&apos;t include practice notes
+              </button>
             </div>
           }
-          <button onClick={this.handleSubmit}>Submit new entry</button>
+          <button className="button" onClick={this.handleSubmit}>
+            <i className="fas fa-check"></i>
+            &nbsp;
+            Submit new entry
+          </button>
         </form>
       </div>
     );

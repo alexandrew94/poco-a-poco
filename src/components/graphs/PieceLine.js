@@ -86,7 +86,7 @@ class LineGraph extends React.Component {
 
   render() {
     return <div>
-      <h1>Your Practice Progress for {this.props.piece.title}</h1>
+      <h1>Your Practice Progress for {this.props.piece.title} ({this.handleDisplayMode(this.state.mode)})</h1>
       <button
         className="button"
         onClick={this.handleGraphDates}

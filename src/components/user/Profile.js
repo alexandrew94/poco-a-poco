@@ -158,7 +158,7 @@ class Profile extends React.Component {
           <div className="modal is-active">
             <div className="modal-background"></div>
             <div className="modal-content">
-              <button onClick={this.handlePieceShowClose}>Close shown piece</button>
+              <button onClick={this.handlePieceShowClose} className="modal-close is-large" aria-label="close"></button>
               <PiecesShow
                 user={this.state.user}
                 handlePieceShowClose={this.handlePieceShowClose}
