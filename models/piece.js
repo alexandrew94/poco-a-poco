@@ -10,7 +10,7 @@ const pieceSchema = new mongoose.Schema({
   title: { type: String, required: 'Title is required' },
   composer: String,
   description: String,
-  instrument: String,
+  instrument: { type: String, required: 'Instrument is required'},
   startedAt: String,
   user: { type: mongoose.Schema.ObjectId, ref: 'User' },
   diary: [ diarySchema ]

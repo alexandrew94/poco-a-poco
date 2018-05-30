@@ -1,4 +1,15 @@
 .pieces {
+
+  .title {
+    font-weight: 800;
+    width: 50%;
+    background-color: $primary;
+    color: white;
+    line-height: 2.5em;
+    margin: $default-margin auto;
+    border-radius: $default-border-radius;
+  }
+
   background-color: $secondary-color-light;
   margin-top: $default-margin;
   border-radius: $default-border-radius;
@@ -30,6 +41,10 @@
 
         h3 {
           font-size: 24px;
+        }
+
+        h4 {
+          font-size: 20px;
         }
       }
 

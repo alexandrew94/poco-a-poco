@@ -99,7 +99,7 @@ class Profile extends React.Component {
                 <div className="column is-6 left-column">
                   <h2 className="title">History of {this.state.user.username}</h2>
                   <h3>My instruments:</h3>
-                  <div className="scroll-container">
+                  <div className="scroll-container instruments-log">
                     { this.state.user.instruments.map((instrument, i) => {
                       return <div key={i}>
                         { instrument.playingTime > 0 &&
@@ -112,7 +112,7 @@ class Profile extends React.Component {
                     })}
                   </div>
                   <h3>My composers:</h3>
-                  <div className="scroll-container">
+                  <div className="scroll-container composers-log">
                     { this.state.user.composersLog && Object.keys(this.state.user.composersLog).map((logKey, i) => {
                       return <p key={i}>
                         <strong>{logKey}: </strong>
@@ -137,21 +137,37 @@ class Profile extends React.Component {
           </div>
         }
         { this.state.createMode &&
-          <div>
-            <label htmlFor="title">Title:</label>
-            <input name="title" onChange={this.handleCreateChange} />
-            <label htmlFor="composer">Composer:</label>
-            <input name="composer" onChange={this.handleCreateChange} />
-            <label htmlFor="description">Description:</label>
-            <textarea name="description" onChange={this.handleCreateChange}></textarea>
-            <label htmlFor="instrument">Instrument:</label>
-            <select name="instrument" onChange={this.handleCreateChange}>
-              { this.state.user.instruments.map((instrument, i) => {
-                return <option key={i} value={instrument.name}>{instrument.name}</option>;
-              })}
-            </select>
-            <button onClick={this.handleCreateSubmit}>Submit new piece</button>
-            <button onClick={this.toggleCreateMode}>Close without saving</button>
+          <div className="modal is-active piece-create">
+            <div className="modal-background"></div>
+            <div className="modal-content">
+              <button onClick={this.toggleCreateMode} className="modal-close is-large" aria-label="close"></button>
+              <div className="title-box">
+                <div className="field">
+                  <label htmlFor="title">Title:</label>
+                  <input name="title" onChange={this.handleCreateChange} />
+                </div>
+                <div className="field">
+                  <label htmlFor="composer">Composer:</label>
+                  <input name="composer" onChange={this.handleCreateChange} />
+                </div>
+                <div className="field">
+                  <label htmlFor="instrument">Instrument:</label>
+                  <select name="instrument" onChange={this.handleCreateChange}>
+                    <option disabled selected>Select an instrument</option>;
+                    { this.state.user.instruments.map((instrument, i) => {
+                      return <option key={i} value={instrument.name}>{instrument.name}</option>;
+                    })}
+                  </select>
+                </div>
+              </div>
+              <label htmlFor="description">Description:</label>
+              <textarea name="description" onChange={this.handleCreateChange}></textarea>
+              <button onClick={this.handleCreateSubmit}>
+                <i className="fas fa-check"></i>
+                &nbsp;
+                Submit new piece
+              </button>
+            </div>
           </div>
         }
         { this.state.pieceShow &&
@@ -171,20 +187,19 @@ class Profile extends React.Component {
           <h2 className="title">My Pieces</h2>
           <div className="columns is-multiline">
             <div className="column is-one-third create-new">
-              { !this.state.createMode &&
-                <div>
-                  <button onClick={this.toggleCreateMode}>
-                    <i className="fas fa-plus"></i>
-                  </button>
-                  <h2>Create New Piece</h2>
-                </div>
-              }
+              <div>
+                <button onClick={this.toggleCreateMode}>
+                  <i className="fas fa-plus"></i>
+                </button>
+                <h2>Create New Piece</h2>
+              </div>
             </div>
             { this.state.user && this.state.user.pieces.map(piece =>
               <div className="column is-one-third" key={piece._id}>
                 <div className="title-box">
                   <h2>{piece.composer}:</h2>
                   <h3>{piece.title}</h3>
+                  <h4>({piece.instrument})</h4>
                 </div>
                 <div className="description-box">
                   <p>{piece.shortDescription}</p>

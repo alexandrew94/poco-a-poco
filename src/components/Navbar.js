@@ -11,43 +11,46 @@ class Navbar extends React.Component {
   }
 
   smoothScroll = ( element ) => {
-    console.log(document.getElementById(element));
     document.getElementById(element).scrollIntoView({ behavior: 'smooth' });
   }
 
   render() {
     return (
-      <nav>
-        <div className="navbar-top">
-          <div>
-            {Auth.isAuthenticated() && <a onClick={() => this.smoothScroll('stats')}>
-              <i className="fas fa-chart-line"></i>
-            </a>}
+      <div>
+        {Auth.isAuthenticated() &&
+        <nav>
+          <div className="navbar-top">
+            <div>
+              <a onClick={() => this.smoothScroll('stats')}>
+                <i className="fas fa-chart-line"></i>
+              </a>
+            </div>
+            <div>
+              <a onClick={() => this.smoothScroll('history')}>
+                <i className="fas fa-history"></i>
+              </a>
+            </div>
+            <div>
+              <a onClick={() => this.smoothScroll('pieces')}>
+                <i className="fas fa-music"></i>
+              </a>
+            </div>
           </div>
-          <div>
-            {Auth.isAuthenticated() && <a onClick={() => this.smoothScroll('history')}>
-              <i className="fas fa-history"></i>
-            </a>}
+          <div className="navbar-bottom">
+            <div>
+              <Link to="/profile/edit">
+                <i className="fas fa-user-edit"></i>
+              </Link>
+            </div>
+            <div>
+              <a onClick={this.handleLogout}>
+                <i className="fas fa-sign-out-alt"></i>
+              </a>
+            </div>
           </div>
-          <div>
-            {Auth.isAuthenticated() && <a onClick={() => this.smoothScroll('pieces')}>
-              <i className="fas fa-music"></i>
-            </a>}
-          </div>
-        </div>
-        <div className="navbar-bottom">
-          <div>
-            {Auth.isAuthenticated() && <Link to="/profile/edit">
-              <i className="fas fa-user-edit"></i>
-            </Link>}
-          </div>
-          <div>
-            {Auth.isAuthenticated() && <a onClick={this.handleLogout}>
-              <i className="fas fa-sign-out-alt"></i>
-            </a>}
-          </div>
-        </div>
-      </nav>
+        </nav>
+        }
+      </div>
     );
   }
 }

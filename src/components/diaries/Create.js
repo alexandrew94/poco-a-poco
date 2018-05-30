@@ -33,7 +33,7 @@ class diariesCreate extends React.Component {
       .then(() => {
         this.closeExpandedMode();
         this.props.componentDidMount();
-        this.setState({ newEntry: {} });
+        this.setState({ newEntry: { timeLogged: moment().format('YYYY-MM-DD') } });
       });
   }
 

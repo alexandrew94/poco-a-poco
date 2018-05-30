@@ -117,23 +117,47 @@ class PiecesShow extends React.Component {
           </div>
         }
         { this.state.editMode &&
-          <div>
-            <input name="title" value={this.state.editedPiece.title} onChange={this.handleChange} />
-            <input name="composer" value={this.state.editedPiece.composer} onChange={this.handleChange}></input>
-            <input name="description" value={this.state.editedPiece.description} onChange={this.handleChange}></input>
-            <select name="instrument" onChange={this.handleChange}>
-              { this.props.user.instruments.map((instrument, i) => {
-                return <option
-                  selected={this.findSelectedInstrument(instrument.name)}
-                  key={i}
-                  value={instrument.name}>
-                  {instrument.name}
-                </option>;
-              })}
-            </select>
-            <button onClick={this.handleSubmit}>Submit changes</button>
-            <button onClick={this.handleDelete}>Delete the piece</button>
-            <button onClick={this.toggleEdit}>Close edit without saving</button>
+          <div className="edit-piece">
+            <div className="title-box">
+              <div className="field">
+                <label htmlFor="title">Title</label>
+                <input name="title" value={this.state.editedPiece.title} onChange={this.handleChange} />
+              </div>
+              <div className="field">
+                <label htmlFor="composer">Composer</label>
+                <input name="composer" value={this.state.editedPiece.composer} onChange={this.handleChange}></input>
+              </div>
+              <div className="field">
+                <label htmlFor="instrument">Instrument</label>
+                <select name="instrument" onChange={this.handleChange}>
+                  { this.props.user.instruments.map((instrument, i) => {
+                    return <option
+                      selected={this.findSelectedInstrument(instrument.name)}
+                      key={i}
+                      value={instrument.name}>
+                      {instrument.name}
+                    </option>;
+                  })}
+                </select>
+              </div>
+            </div>
+            <label htmlFor="description">Description</label>
+            <textarea name="description" value={this.state.editedPiece.description} onChange={this.handleChange}></textarea>
+            <button className="submit" onClick={this.handleSubmit}>
+              <i className="fas fa-check"></i>
+              &nbsp;
+              Submit Changes
+            </button>
+            <button className="delete-button" onClick={this.handleDelete}>
+              <i className="fas fa-trash-alt"></i>
+              &nbsp;
+              Delete Piece
+            </button>
+            <button className="close" onClick={this.toggleEdit}>
+              <i className="fas fa-times"></i>
+              &nbsp;
+              Close Without Saving
+            </button>
           </div>
         }
       </div>

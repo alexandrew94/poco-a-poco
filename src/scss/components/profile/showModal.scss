@@ -202,6 +202,65 @@
         border: 0;
         background-color: $tertiary-color;
       }
+
+      .diary-edit {
+
+        form {
+
+          h4 {
+
+            input {
+              height: 30px;
+              font-size: 16px;
+              border-radius: $default-border-radius;
+
+              &.date {
+                width: 150px;
+              }
+
+              &.minutes {
+                width: 100px;
+              }
+            }
+          }
+
+          textarea {
+            display: block;
+            width: 100%;
+            background-color: $tertiary-color-light;
+            border-radius: $default-border-radius;
+            padding: 15px;
+            font-size: 16px;
+            margin: 15px 0;
+            height: 100px;
+          }
+
+          button {
+            display: block;
+            width: 100%;
+            font-size: 16px;
+            border-radius: $default-border-radius;
+            margin: 7px 0;
+            padding: 7px;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+
+            &.save {
+              background-color: $secondary-color;
+            }
+
+            &.delete-button {
+              background-color: $primary;
+            }
+
+            &.close {
+              background-color: $tertiary-color;
+              color: $dark-text;
+            }
+          }
+        }
+      }
     }
   }
 }

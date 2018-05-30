@@ -10,11 +10,10 @@ class LineGraph extends React.Component {
   }
 
   componentDidMount = () => {
-    this.setState({ ...this.state, daysDisplayed: this.handleAllTimeDates()}, () => console.log(this.state));
+    this.setState({ ...this.state, daysDisplayed: this.handleAllTimeDates()});
   }
 
   componentDidUpdate = () => {
-
     const labels = [];
     for (var i = (this.state.daysDisplayed - 1); i >= 0; i--) {
       labels.push(moment().subtract(i, 'days').format('YYYY-MM-DD'));

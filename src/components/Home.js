@@ -18,9 +18,9 @@ class Home extends React.Component {
   }
 
   render() {
-    return <div>
-      <h1>Some landing page</h1>
-      <h2>landing landing</h2>
+    return <div className="landing">
+      <h1>poco a poco</h1>
+      <img>
       { this.state.mode === 'login' &&
         <div>
           <Login handleRedirect={this.handleRedirect}/>

@@ -102,17 +102,31 @@ class diariesShow extends React.Component {
           </div>
         }
         { this.state.mode === 'edit' &&
-          <div className="diary-form">
+          <div className="diary-edit">
             <form>
-              <input type="date" name='timeLogged' value={this.state.editedEntry.timeLogged} onChange={this.handleChange}/>
-              { this.state.displayDate &&
-                <small>({this.state.displayDate})</small>
-              }
-              <input name='timePracticed' value={this.state.editedEntry.timePracticed} onChange={this.handleChange}/>
+              <h4><strong>
+                <input className="date" type="date" name='timeLogged' value={this.state.editedEntry.timeLogged} onChange={this.handleChange}/>
+                { this.state.displayDate &&
+                  <span> ({this.generateDiaryDisplayDate(this.state.editedEntry.timeLogged)}) , you practiced </span>
+                }
+                <input className="minutes" name='timePracticed' value={this.state.editedEntry.timePracticed} onChange={this.handleChange}/><span> mins</span>
+              </strong></h4>
               <textarea name='notes' value={this.state.editedEntry.notes} onChange={this.handleChange}/>
-              <button onClick={this.handleSubmit}>Save changes</button>
-              <button onClick={this.handleDelete}>Delete this entry</button>
-              <button onClick={this.handleCloseEditMode}>Close without saving</button>
+              <button className="save" onClick={this.handleSubmit}>
+                <i className="fas fa-save"></i>
+                &nbsp;
+                Save Changes
+              </button>
+              <button className="delete-button" onClick={this.handleDelete}>
+                <i className="fas fa-trash-alt"></i>
+                &nbsp;
+                Delete This Entry
+              </button>
+              <button className="close" onClick={this.handleCloseEditMode}>
+                <i className="fas fa-times"></i>
+                &nbsp;
+                Close Without Saving
+              </button>
             </form>
           </div>
         }
