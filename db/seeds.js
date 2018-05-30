@@ -57,7 +57,7 @@ mongoose.connect(dbURI, (err, db) => {
         description: 'description2',
         instrument: 'violin',
         user: seededUsers[0],
-        startedAt: '2018-05-26',
+        startedAt: '2018-05-24',
         diary: [{
           timeLogged: '2018-05-26',
           timePracticed: 10,
@@ -72,12 +72,14 @@ mongoose.connect(dbURI, (err, db) => {
         composer: 'composer3',
         description: 'description3',
         instrument: 'violin',
+        startedAt: '2018-05-24',
         user: seededUsers[1]
       }, {
         title: 'piece4',
         composer: 'composer4',
         description: 'description4',
         instrument: 'violin',
+        startedAt: '2018-05-24',
         user: seededUsers[1]
       }])
         .then(users => {

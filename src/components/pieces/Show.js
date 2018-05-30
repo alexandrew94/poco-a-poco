@@ -66,20 +66,35 @@ class PiecesShow extends React.Component {
     this.setState({ editMode: !this.state.editMode });
   }
 
+  reformatMinutes = (timeInMinutes) => {
+    return timeInMinutes / 60 > 1 ? `${Math.floor(timeInMinutes/60)} hours, ${timeInMinutes % 60} mins` : `${timeInMinutes} mins`;
+  }
+
   render() {
     return (
       <div>
         { !this.state.editMode &&
           <div>
-            <h1>Title: {this.state.piece.title}</h1>
-            <h2>Composer: {this.state.piece.composer}</h2>
-            <h2>Description: {this.state.piece.description}</h2>
-            <h3>Instrument: {this.state.piece.instrument}</h3>
-            <h2>{this.state.piece.totalPracticed} minutes practiced</h2>
-            { this.state.piece.title && <PieceLine
-              piece={this.state.piece}
-            /> }
-            <button onClick={this.toggleEdit}>Open edit</button>
+            <h1 className="main-title">{this.state.piece.title} Stats</h1>
+            <div className="total-practiced">
+              <h3>A total of</h3>
+              <h2>{this.reformatMinutes(this.state.piece.totalPracticed)}</h2>
+              <h3>practiced since {this.state.piece.startedAt}</h3>
+            </div>
+            <div className="columns">
+              <div className="left-column column is-half">
+                <h2><strong>Composer:</strong> {this.state.piece.composer}</h2>
+                <h3><strong>Instrument:</strong> {this.state.piece.instrument}</h3>
+              </div>
+              <div className="right-column column is-half">
+                <h2>{this.state.piece.description}</h2>
+              </div>
+            </div>
+            <div className="line-graph">
+              { this.state.piece.title && <PieceLine
+                piece={this.state.piece}
+              /> }
+            </div>
             <DiariesCreate
               pieceId={this.state.piece._id}
               componentDidMount={this.componentDidMount}
@@ -95,6 +110,10 @@ class PiecesShow extends React.Component {
               );
             })
             }
+            <button className="edit-button button" onClick={this.toggleEdit}>
+              <i className="fas fa-edit"></i>
+              &nbsp;Edit Piece
+            </button>
           </div>
         }
         { this.state.editMode &&

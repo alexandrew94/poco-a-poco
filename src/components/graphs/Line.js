@@ -6,7 +6,7 @@ class LineGraph extends React.Component {
 
   state = {
     daysDisplayed: null,
-    mode: 'all time'
+    mode: 'all-time'
   }
 
   componentDidMount = () => {
@@ -60,8 +60,8 @@ class LineGraph extends React.Component {
     });
   }
 
-  handleGraphDates = ({ target: { value }}) => {
-    this.setState({ ...this.state, daysDisplayed: value });
+  handleGraphDates = ({ target: { value, name }}) => {
+    this.setState({ ...this.state, daysDisplayed: value, mode: name });
   }
 
   handleAllTimeDates = () => {
@@ -70,18 +70,46 @@ class LineGraph extends React.Component {
     return Math.abs(a.diff(b, 'days')) + 1;
   }
 
+  handleDisplayMode = (mode) => {
+    const modes = {
+      'all-time': 'All Time',
+      '7-days': 'Last 7 days',
+      '30-days': 'Last 30 days'
+    };
+    return modes[mode];
+  }
+
   render() {
     return <div>
-      <button className="button is-primary" onClick={this.handleGraphDates} value={30}>
-        Show last 30 days
+      <h2>Your Practice Progress ({this.handleDisplayMode(this.state.mode)})</h2>
+      <button
+        className="button is-primary"
+        onClick={this.handleGraphDates}
+        value={this.handleAllTimeDates()}
+        name="all-time"
+        disabled={this.state.mode === 'all-time'}
+      >
+        Show all time
       </button>
       &nbsp;
-      <button className="button is-primary" onClick={this.handleGraphDates} value={7}>
+      <button
+        className="button is-primary"
+        onClick={this.handleGraphDates}
+        value={7}
+        name="7-days"
+        disabled={this.state.mode === '7-days'}
+      >
         Show last 7 days
       </button>
       &nbsp;
-      <button className="button is-primary" onClick={this.handleGraphDates} value={this.handleAllTimeDates()}>
-        Show all time
+      <button
+        className="button is-primary"
+        onClick={this.handleGraphDates}
+        value={30}
+        name="30-days"
+        disabled={this.state.mode === '30-days'}
+      >
+        Show last 30 days
       </button>
       { this.state.daysDisplayed && <div className="chart-container">
         <canvas id="line"></canvas>

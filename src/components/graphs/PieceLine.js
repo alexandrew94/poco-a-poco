@@ -5,7 +5,8 @@ import Chart from 'chart.js';
 class LineGraph extends React.Component {
 
   state = {
-    daysDisplayed: null
+    daysDisplayed: null,
+    mode: 'all-time'
   }
 
   componentDidMount = () => {
@@ -43,10 +44,10 @@ class LineGraph extends React.Component {
             label: 'Total Minutes Practiced',
             data: data,
             backgroundColor: [
-              'blue'
+              '#f1ff77'
             ],
             borderColor: [
-              'rgba(255,99,132,1)'
+              '#5fb3ce'
             ],
             borderWidth: 7
           }]
@@ -64,8 +65,8 @@ class LineGraph extends React.Component {
     });
   }
 
-  handleGraphDates = ({ target: { value }}) => {
-    this.setState({ ...this.state, daysDisplayed: value }, () => this.componentDidMount());
+  handleGraphDates = ({ target: { value, name }}) => {
+    this.setState({ ...this.state, daysDisplayed: value , mode: name });
   }
 
   handleAllTimeDates = () => {
@@ -74,12 +75,42 @@ class LineGraph extends React.Component {
     return Math.abs(a.diff(b, 'days')) + 1;
   }
 
+  handleDisplayMode = (mode) => {
+    const modes = {
+      'all-time': 'All Time',
+      '7-days': 'Last 7 days',
+      '30-days': 'Last 30 days'
+    };
+    return modes[mode];
+  }
+
   render() {
     return <div>
+      <h1>Your Practice Progress for {this.props.piece.title}</h1>
+      <button
+        className="button"
+        onClick={this.handleGraphDates}
+        value={this.handleAllTimeDates()}
+        name="all-time"
+        disabled={this.state.mode === 'all-time'}
+      >Show all time</button>
+      &nbsp;
+      <button
+        className="button"
+        onClick={this.handleGraphDates}
+        value={7}
+        name="7-days"
+        disabled={this.state.mode === '7-days'}
+      >Show last 7 days</button>
+      &nbsp;
+      <button
+        className="button"
+        onClick={this.handleGraphDates}
+        value={30}
+        name="30-days"
+        disabled={this.state.mode === '30-days'}
+      >Show last 30 days</button>
       { this.state.daysDisplayed && <canvas id="piece-line"></canvas>}
-      <button onClick={this.handleGraphDates} value={30}>Show last 30 days</button>
-      <button onClick={this.handleGraphDates} value={7}>Show last 7 days</button>
-      <button onClick={this.handleGraphDates} value={this.handleAllTimeDates()}>Show all time</button>
     </div>;
   }
 

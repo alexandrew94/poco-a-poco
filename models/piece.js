@@ -39,4 +39,12 @@ pieceSchema
     return minutesArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   });
 
+pieceSchema
+  .virtual('shortDescription')
+  .get(function(){
+    if (this.description) {
+      return this.description.length > 50 ? this.description.substring(0, 50) + '...' : this.description;
+    }
+  });
+
 module.exports = mongoose.model('Piece', pieceSchema);

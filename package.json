@@ -53,6 +53,8 @@
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-router-dom": "^4.2.2",
+    "react-router-hash-link": "^1.2.0",
+    "react-scrollable-anchor": "^0.6.1",
     "taucharts": "^2.2.3"
   }
 }

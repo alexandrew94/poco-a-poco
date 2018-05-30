@@ -55,17 +55,20 @@
   }
 
   div.second-row {
-    height: 500px;
+    height: 600px;
     text-align: center;
 
     h2 {
       font-size: 32px;
       font-weight: 600;
+      margin-bottom: 15px;
     }
 
     div {
+      margin-top: 15px;
+
       .chart-container {
-        height: 470px;
+        height: 500px;
 
         #line {
           margin: 0 auto;

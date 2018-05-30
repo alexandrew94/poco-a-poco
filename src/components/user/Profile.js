@@ -56,8 +56,8 @@ class Profile extends React.Component {
       });
   }
 
-  reformatTotalPracticed = (timeInMinutes) => {
-    return timeInMinutes % 60 ? `${Math.floor(timeInMinutes/60)} hours, ${timeInMinutes % 60} mins` : `${timeInMinutes} mins`;
+  reformatMinutes = (timeInMinutes) => {
+    return timeInMinutes / 60 > 1 ? `${Math.floor(timeInMinutes/60)} hours, ${timeInMinutes % 60} mins` : `${timeInMinutes} mins`;
   }
 
   render() {
@@ -65,7 +65,7 @@ class Profile extends React.Component {
       <div>
         { this.state.user &&
           <div>
-            <header>
+            <header id="stats">
               <div className="page-title">
                 <h1>poco a poco</h1>
               </div>
@@ -81,7 +81,7 @@ class Profile extends React.Component {
                   <h2 className="title">Stats for {this.state.user.username}</h2>
                   <div className="total">
                     <h3>A total of</h3>
-                    <h2>{this.reformatTotalPracticed(this.state.user.totalPracticed)}</h2>
+                    <h2>{this.reformatMinutes(this.state.user.totalPracticed)}</h2>
                     <h3>practiced since {this.state.user.accountCreated}</h3>
                   </div>
                 </div>
@@ -91,34 +91,50 @@ class Profile extends React.Component {
                 </div>
               </div>
               <div className="second-row">
-                <h2>Your Practice History</h2>
                 <LineGraph user={this.state.user} />
               </div>
             </div>
-            <h2>My instruments:</h2>
-            { this.state.user.instruments.map((instrument, i) => {
-              return <div key={i}>
-                { instrument.playingTime > 0 &&
-                  <p>{instrument.name}: played for {instrument.playingTime} mins in total</p>
-                }
-              </div>;
-            })}
-            <h2>My practice log:</h2>
-            <ul>
-              { this.state.user.practiceLog && Object.keys(this.state.user.practiceLog).map((logKey, i) => {
-                return <li key={i}>{logKey}: {this.state.user.practiceLog[logKey]} mins</li>;
-              }) }
-            </ul>
-            <h2>My composers:</h2>
-            <ul>
-              { this.state.user.composersLog && Object.keys(this.state.user.composersLog).map((logKey, i) => {
-                return <li key={i}>{logKey}: {this.state.user.composersLog[logKey]} mins</li>;
-              }) }
-            </ul>
+            <div className="logs" id="history">
+              <div className="columns">
+                <div className="column is-6 left-column">
+                  <h2 className="title">History of {this.state.user.username}</h2>
+                  <h3>My instruments:</h3>
+                  <div className="scroll-container">
+                    { this.state.user.instruments.map((instrument, i) => {
+                      return <div key={i}>
+                        { instrument.playingTime > 0 &&
+                          <p key={i}>
+                            <strong>{instrument.name}: </strong>
+                            practiced for {this.reformatMinutes(instrument.playingTime)} in total
+                          </p>
+                        }
+                      </div>;
+                    })}
+                  </div>
+                  <h3>My composers:</h3>
+                  <div className="scroll-container">
+                    { this.state.user.composersLog && Object.keys(this.state.user.composersLog).map((logKey, i) => {
+                      return <p key={i}>
+                        <strong>{logKey}: </strong>
+                        practiced for {this.reformatMinutes(this.state.user.composersLog[logKey])}
+                      </p>;
+                    }) }
+                  </div>
+                </div>
+                <div className="column is-6 right-column">
+                  <h3>My practice log:</h3>
+                  <div className="scroll-container practice-log">
+                    { this.state.user.practiceLog && Object.keys(this.state.user.practiceLog).sort().reverse().map((logKey, i) => {
+                      return <p key={i}>
+                        <strong>{logKey}: </strong>
+                        {this.reformatMinutes(this.state.user.practiceLog[logKey])}
+                      </p>;
+                    }) }
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        }
-        { !this.state.createMode &&
-          <button onClick={this.toggleCreateMode}>Create a new piece</button>
         }
         { this.state.createMode &&
           <div>
@@ -139,23 +155,48 @@ class Profile extends React.Component {
           </div>
         }
         { this.state.pieceShow &&
-          <div>
-            <h2>Currently shown piece:</h2>
-            <button onClick={this.handlePieceShowClose}>Close shown piece</button>
-            <PiecesShow
-              user={this.state.user}
-              handlePieceShowClose={this.handlePieceShowClose}
-              piece={this.state.pieceShow}
-            />
+          <div className="modal is-active">
+            <div className="modal-background"></div>
+            <div className="modal-content">
+              <button onClick={this.handlePieceShowClose}>Close shown piece</button>
+              <PiecesShow
+                user={this.state.user}
+                handlePieceShowClose={this.handlePieceShowClose}
+                piece={this.state.pieceShow}
+              />
+            </div>
           </div>
         }
-        { this.state.user && this.state.user.pieces.map(piece =>
-          <div key={piece._id}>
-            <h2>{piece.title}</h2>
-            <h2>{piece.composer}</h2>
-            <button value={piece._id} onClick={this.handlePieceShow}>Show this piece</button>
+        <div className="pieces" id="pieces">
+          <h2 className="title">My Pieces</h2>
+          <div className="columns is-multiline">
+            <div className="column is-one-third create-new">
+              { !this.state.createMode &&
+                <div>
+                  <button onClick={this.toggleCreateMode}>
+                    <i className="fas fa-plus"></i>
+                  </button>
+                  <h2>Create New Piece</h2>
+                </div>
+              }
+            </div>
+            { this.state.user && this.state.user.pieces.map(piece =>
+              <div className="column is-one-third" key={piece._id}>
+                <div className="title-box">
+                  <h2>{piece.composer}:</h2>
+                  <h3>{piece.title}</h3>
+                </div>
+                <div className="description-box">
+                  <p>{piece.shortDescription}</p>
+                </div>
+                <button value={piece._id} onClick={this.handlePieceShow}>
+                  <i className="fas fa-expand-arrows-alt"></i>&nbsp;
+                  Show Details
+                </button>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     );
   }

@@ -1,0 +1,88 @@
+.modal {
+
+  .modal-content {
+    height: 80vh;
+    background-color: $secondary-color-light;
+    overflow-y: scroll;
+    padding: $default-padding;
+    border-radius: $default-border-radius;
+    border: 7px solid $secondary-color;
+
+    h1.main-title {
+      font-size: 36px;
+      text-align: center;
+      color: white;
+      background-color: $secondary-color;
+      border-radius: $default-border-radius;
+      padding: 15px;
+      font-weight: 800;
+    }
+
+    .total-practiced {
+      text-align: center;
+      margin: 15px 0;
+      border: 7px solid $secondary-color;
+      border-radius: $default-border-radius;
+      padding: 15px;
+      background-color: $tertiary-color-light;
+
+      h3 {
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      h2 {
+        font-weight: 800;
+        font-size: 22px;
+      }
+    }
+
+    div.column {
+      height: 100px;
+      width: calc(50% - 30px);
+      margin: 15px;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: $default-border-radius;
+
+      &.left-column {
+        text-align: center;
+        background-color: $tertiary-color;
+        border: 7px solid $secondary-color;
+
+        strong {
+          font-weight: 600;
+        }
+      }
+
+      &.right-column {
+        background-color: $tertiary-color-light;
+      }
+    }
+
+    div.line-graph {
+      text-align: center;
+
+      h1 {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 15px 0;
+      }
+
+      button {
+        background-color: $secondary-color;
+        font-weight: 600;
+        color: white;
+      }
+    }
+
+    .edit-button {
+      display: block;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: 600;
+      padding: 0 30px;
+      background-color: $tertiary-color;
+    }
+  }
+}
