@@ -2,6 +2,7 @@ const router = require('express').Router();
 const users = require('../controllers/users');
 const pieces = require('../controllers/pieces');
 const diaries = require('../controllers/diaries');
+const wikimedia = require('../controllers/wikimedia');
 const secureRoute = require('../lib/secureRoute');
 
 router.route('/users')
@@ -34,5 +35,8 @@ router.route('/users/:id/pieces/:pieceId/diary')
 router.route('/users/:id/pieces/:pieceId/diary/:diaryId')
   .put(secureRoute, diaries.update)
   .delete(secureRoute, diaries.delete);
+
+router.route('/wikimedia/composers/:name')
+  .get(wikimedia.composers);
 
 module.exports = router;

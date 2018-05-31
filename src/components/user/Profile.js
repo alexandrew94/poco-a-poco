@@ -19,6 +19,7 @@ class Profile extends React.Component {
     search: '',
     newPiece: {
       suggestedComposer: '',
+      composer: '',
       startedAt: moment().format('YYYY-MM-DD')
     },
     pieceShow: null,
@@ -33,7 +34,6 @@ class Profile extends React.Component {
       axios
         .get(`/api/users/${Auth.getPayload().sub}`, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
         .then(res => {
-          console.log('logging inside auth inside profile');
           this.setState({ user: res.data });
         });
     }
@@ -58,14 +58,22 @@ class Profile extends React.Component {
 
   handleCreateChange = ({ target: { name, value }}) => {
     this.setState({ newPiece: { ...this.state.newPiece, [name]: value }});
-    if (name === 'composer') {
+    if (name === 'composer' && value) {
       const formattedValue = value.split(' ').join('%20');
       axios
-        .get(`https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${formattedValue}&redirects=1`, { headers: { 'Access-Control-Allow-Origin': '*' }})
+        .get(`/api/wikimedia/composers/${formattedValue}`)
         .then(res => {
-          this.setState({ newPiece: { ...this.state.newPiece, suggestedComposer: res.redirects[0].to}}, () => console.log(this.state.newPiece));
+          if (res.data.query.redirects) {
+            this.setState({ newPiece: { ...this.state.newPiece, suggestedComposer: res.data.query.redirects[0].to}});
+          } else {
+            this.setState({ newPiece: { ...this.state.newPiece, suggestedComposer: '' }});
+          }
         });
     }
+  }
+
+  handleSuggestedComposer = () => {
+    this.setState({ ...this.state, newPiece: { ...this.state.newPiece, composer: this.state.newPiece.suggestedComposer }});
   }
 
   handleCreateSubmit = () => {
@@ -209,7 +217,16 @@ class Profile extends React.Component {
                 </div>
                 <div className="field">
                   <label htmlFor="composer">Composer:</label>
-                  <input name="composer" onChange={this.handleCreateChange} />
+                  <input value={this.state.newPiece.composer} name="composer" onChange={this.handleCreateChange} />
+                  { this.state.newPiece.composer && this.state.newPiece.suggestedComposer &&
+                    <p className="autocorrect">Did you mean:
+                      &nbsp;
+                    <span onClick={this.handleSuggestedComposer}>
+                      {this.state.newPiece.suggestedComposer}
+                    </span>?
+                      &nbsp;
+                    </p>
+                  }
                 </div>
                 <div className="field">
                   <label htmlFor="instrument">Instrument:</label>
