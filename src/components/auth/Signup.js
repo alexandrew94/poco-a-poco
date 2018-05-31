@@ -24,7 +24,7 @@ class Signup extends React.Component {
       })
       .then(() => this.props.history.push('/profile'))
       .catch(() => {
-        this.props.handleRedirect();
+        this.props.handleRedirect('/profile');
       });
   }
 

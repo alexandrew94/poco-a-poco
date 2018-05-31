@@ -22,12 +22,14 @@ class PieChart extends React.Component {
             backgroundColor: [
               '#5fb3ce',
               '#f1ff77',
-              '#8dff77'
+              '#8dff77',
+              '#f200ff'
             ],
             borderColor: [
               '#ff5656',
               '#00bfff',
-              '#ff77f8'
+              '#ff77f8',
+              '#7cff75'
             ],
             borderWidth: 7
           }]

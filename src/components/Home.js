@@ -9,8 +9,8 @@ class Home extends React.Component {
     mode: 'login'
   }
 
-  handleRedirect = () => {
-    this.props.history.push('/profile');
+  handleRedirect = (destination) => {
+    this.props.history.push(destination);
   }
 
   toggleMode = () => {

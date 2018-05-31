@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import Auth from '../../lib/Auth';
@@ -8,6 +9,8 @@ import PiecesShow from '../pieces/Show';
 
 import LineGraph from '../graphs/Line';
 import PieChart from '../graphs/Pie';
+
+import Flash from '../../lib/Flash';
 
 class Profile extends React.Component {
   state = {
@@ -20,11 +23,16 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`/api/users/${Auth.getPayload().sub}`, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
-      .then(res => {
-        this.setState({ user: res.data });
-      });
+    if (!Auth.isAuthenticated()) {
+      Flash.setMessage('danger', '⚠️ You must be signed in! ⚠️');
+      this.props.displayFlashMessages();
+    } else {
+      axios
+        .get(`/api/users/${Auth.getPayload().sub}`, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
+        .then(res => {
+          this.setState({ user: res.data });
+        });
+    }
   }
 
   handlePieceShow = ({ target: { value } }) => {
@@ -49,6 +57,8 @@ class Profile extends React.Component {
   }
 
   handleCreateSubmit = () => {
+    Flash.setMessage('okay', '✅ Piece created! ✅');
+    this.props.displayFlashMessages();
     axios
       .post(`/api/users/${Auth.getPayload().sub}/pieces`, this.state.newPiece, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(res => {
@@ -66,6 +76,9 @@ class Profile extends React.Component {
   }
 
   render() {
+    if (!Auth.isAuthenticated()) {
+      return <Redirect to='/' />;
+    }
     return (
       <div>
         { this.state.user &&

@@ -1,6 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import Flash from '../../lib/Flash';
 import instruments from '../../lib/Instruments';
 
 class Profile extends React.Component {
@@ -10,9 +12,14 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`/api/users/${Auth.getPayload().sub}`, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
-      .then(user => this.setState({ user: user.data, editedUser: user.data }));
+    if (!Auth.isAuthenticated()) {
+      Flash.setMessage('danger', '⚠️ You must be signed in! ⚠️');
+      this.props.displayFlashMessages();
+    } else {
+      axios
+        .get(`/api/users/${Auth.getPayload().sub}`, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
+        .then(user => this.setState({ user: user.data, editedUser: user.data }));
+    }
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -50,6 +57,9 @@ class Profile extends React.Component {
   };
 
   render() {
+    if (!Auth.isAuthenticated()) {
+      return <Redirect to='/' />;
+    }
     return (
       <div>
         <form>

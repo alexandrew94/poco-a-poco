@@ -17,7 +17,7 @@ class AuthLogin extends React.Component {
         Auth.setToken(res.data.token);
       })
       .then(() => {
-        this.props.handleRedirect();
+        this.props.handleRedirect('/profile');
       });
   }
 
