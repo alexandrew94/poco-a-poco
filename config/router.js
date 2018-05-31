@@ -11,7 +11,7 @@ router.route('/users/:id')
   .get(secureRoute, users.show);
 
 router.route('/users/:id/edit')
-  .post(secureRoute, users.update);
+  .put(secureRoute, users.update);
 
 router.route('/signup')
   .post(users.signup);

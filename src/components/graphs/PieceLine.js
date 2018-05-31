@@ -10,7 +10,7 @@ class LineGraph extends React.Component {
   }
 
   componentDidMount = () => {
-    !this.state.daysDisplayed ? this.setState({ daysDisplayed: this.handleAllTimeDates() }) : null;
+    !this.state.daysDisplayed ? this.setState({ ...this.state, daysDisplayed: this.handleAllTimeDates() }) : null;
   }
 
   componentDidUpdate = () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import Auth from '../../lib/Auth';
+import Flash from '../../lib/Flash';
 import instruments from '../../lib/Instruments';
 
 class Signup extends React.Component {
@@ -22,9 +23,12 @@ class Signup extends React.Component {
       .then(res => {
         Auth.setToken(res.data.token);
       })
-      .then(() => this.props.history.push('/profile'))
-      .catch(() => {
-        this.props.handleRedirect('/profile');
+      .then(() => this.props.handleRedirect('/profile'))
+      .catch(err => {
+        if (err.response) {
+          Flash.setMessage('danger', `⚠️ ${err.response.data.errors.username || err.response.data.errors.email || err.response.data.errors.password}`);
+          this.props.displayFlashMessages();
+        }
       });
   }
 

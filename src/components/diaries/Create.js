@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+
 import Auth from '../../lib/Auth';
+import Flash from '../../lib/Flash';
 
 class diariesCreate extends React.Component {
 
@@ -31,9 +33,15 @@ class diariesCreate extends React.Component {
         this.state.newEntry,
         { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(() => {
+        Flash.setMessage('success', '✅ Log created!');
+        this.props.displayFlashMessages();
         this.closeExpandedMode();
         this.props.componentDidMount();
         this.setState({ newEntry: { timeLogged: moment().format('YYYY-MM-DD') } });
+      })
+      .catch(() => {
+        Flash.setMessage('danger', '🚫 Minutes Practiced cannot be blank');
+        this.props.displayFlashMessages();
       });
   }
 

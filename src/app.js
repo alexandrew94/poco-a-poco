@@ -42,13 +42,14 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <div className="flash-message">
-            {this.state.messages && Object.keys(this.state.messages).map(type => {
-              console.log(this.state.messages, 'logging insideeeeeeeeeeeeeeeeee');
-              <div key={type} className={`notification is-${type}`}>{this.state.messages[type]}</div>;
-            }
-            )}
-          </div>
+          {this.state.messages && Object.keys(this.state.messages).map(type => {
+            return (
+              <div key={type} className={`flash-message notification is-${type}`}>
+                {this.state.messages[type]}
+              </div>
+            );
+          }
+          )}
           <Navbar
             editingProfileStatus={this.state.editingProfile}
             editingProfileTrue={this.editingProfileTrue}
@@ -71,7 +72,17 @@ class App extends React.Component {
                 )}
                 path="/profile"
               />
-              <Route exact path="/" component={Home} />
+              <Route
+                render={(props) => (
+                  <Home {...props} displayFlashMessages={this.displayFlashMessages} />
+                )}
+                exact path="/"
+              />
+              <Route
+                render={(props) => (
+                  <Profile {...props} displayFlashMessages={this.displayFlashMessages} />
+                )}
+              />
             </Switch>
           </main>
         </div>

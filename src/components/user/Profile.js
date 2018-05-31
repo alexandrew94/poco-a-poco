@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import _ from 'lodash';
 import Auth from '../../lib/Auth';
 import instrumentsLibrary from '../../lib/Instruments';
 
@@ -15,7 +16,9 @@ import Flash from '../../lib/Flash';
 class Profile extends React.Component {
   state = {
     createdMode: false,
+    search: '',
     newPiece: {
+      suggestedComposer: '',
       startedAt: moment().format('YYYY-MM-DD')
     },
     pieceShow: null,
@@ -24,12 +27,13 @@ class Profile extends React.Component {
 
   componentDidMount() {
     if (!Auth.isAuthenticated()) {
-      Flash.setMessage('danger', '⚠️ You must be signed in! ⚠️');
+      Flash.setMessage('danger', '⚠️ You must be signed in!');
       this.props.displayFlashMessages();
     } else {
       axios
         .get(`/api/users/${Auth.getPayload().sub}`, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
         .then(res => {
+          console.log('logging inside auth inside profile');
           this.setState({ user: res.data });
         });
     }
@@ -54,16 +58,28 @@ class Profile extends React.Component {
 
   handleCreateChange = ({ target: { name, value }}) => {
     this.setState({ newPiece: { ...this.state.newPiece, [name]: value }});
+    if (name === 'composer') {
+      const formattedValue = value.split(' ').join('%20');
+      axios
+        .get(`https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${formattedValue}&redirects=1`, { headers: { 'Access-Control-Allow-Origin': '*' }})
+        .then(res => {
+          this.setState({ newPiece: { ...this.state.newPiece, suggestedComposer: res.redirects[0].to}}, () => console.log(this.state.newPiece));
+        });
+    }
   }
 
   handleCreateSubmit = () => {
-    Flash.setMessage('okay', '✅ Piece created! ✅');
-    this.props.displayFlashMessages();
     axios
       .post(`/api/users/${Auth.getPayload().sub}/pieces`, this.state.newPiece, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(res => {
+        Flash.setMessage('success', '✅ Piece created!');
+        this.props.displayFlashMessages();
         this.setState({ createMode: false, pieces: res.data.pieces });
         this.componentDidMount();
+      })
+      .catch(() => {
+        Flash.setMessage('danger', '⚠️ Title and instrument are required!');
+        this.props.displayFlashMessages();
       });
   }
 
@@ -73,6 +89,18 @@ class Profile extends React.Component {
 
   getInstrumentEmoji = (name) => {
     return instrumentsLibrary.filter(instrument => instrument.name === name)[0].emoji;
+  }
+
+  handleSearchChange = ({ target: { value }}) => {
+    this.setState({ ...this.state, search: value });
+  }
+
+  filteredPieces = () => {
+    const re = new RegExp(this.state.search, 'i');
+    const filtered = _.filter(this.state.user.pieces, piece => {
+      return re.test(piece.title) || re.test(piece.composer) || re.test(piece.instrument) || re.test(piece.description);
+    });
+    return _.orderBy(filtered);
   }
 
   render() {
@@ -126,7 +154,9 @@ class Profile extends React.Component {
                   </h2>
                   <h3>My instruments:</h3>
                   <div className="scroll-container instruments-log">
-                    { this.state.user.instruments.map((instrument, i) => {
+                    { this.state.user.instruments.sort((a, b) => {
+                      return a.playingTime < b.playingTime;
+                    }).map((instrument, i) => {
                       return <div key={i}>
                         { instrument.playingTime > 0 &&
                           <p key={i}>
@@ -142,7 +172,9 @@ class Profile extends React.Component {
                   </div>
                   <h3>My composers:</h3>
                   <div className="scroll-container composers-log">
-                    { this.state.user.composersLog && Object.keys(this.state.user.composersLog).map((logKey, i) => {
+                    { this.state.user.composersLog && Object.keys(this.state.user.composersLog).sort((a, b) => {
+                      return this.state.user.composersLog[a] < this.state.user.composersLog[b];
+                    }).map((logKey, i) => {
                       return <p key={i}>
                         <strong>{logKey}: </strong>
                         practiced for {this.reformatMinutes(this.state.user.composersLog[logKey])}
@@ -206,6 +238,7 @@ class Profile extends React.Component {
               <button onClick={this.handlePieceShowClose} className="modal-close is-large" aria-label="close"></button>
               <PiecesShow
                 user={this.state.user}
+                displayFlashMessages={this.props.displayFlashMessages}
                 handlePieceShowClose={this.handlePieceShowClose}
                 piece={this.state.pieceShow}
               />
@@ -218,6 +251,11 @@ class Profile extends React.Component {
             &nbsp;
             My Pieces
           </h2>
+          <div className="search">
+            <i className="fas fa-search"></i>
+            &nbsp;
+            <input placeholder="Search" onChange={this.handleSearchChange} autoFocus/>
+          </div>
           <div className="columns is-multiline">
             <div className="column is-one-third create-new">
               <div>
@@ -227,7 +265,7 @@ class Profile extends React.Component {
                 <h2>Create New Piece</h2>
               </div>
             </div>
-            { this.state.user && this.state.user.pieces.map(piece =>
+            { this.state.user && this.filteredPieces().map(piece =>
               <div className="column is-one-third" key={piece._id}>
                 <div className="title-box">
                   <h2>{piece.composer}:</h2>

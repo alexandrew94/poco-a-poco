@@ -7,6 +7,8 @@ import DiariesCreate from '../diaries/Create';
 
 import PieceLine from '../graphs/PieceLine';
 
+import Flash from '../../lib/Flash';
+
 class PiecesShow extends React.Component {
   state = {
     editMode: false,
@@ -47,8 +49,14 @@ class PiecesShow extends React.Component {
         this.setState({ piece });
       })
       .then(() => {
+        Flash.setMessage('success', '✅ Piece edited!');
+        this.props.displayFlashMessages();
         this.setState({ editMode: false });
         this.componentDidMount();
+      })
+      .catch(() => {
+        Flash.setMessage('danger', '⚠️ Title is required!');
+        this.props.displayFlashMessages();
       });
   }
 
@@ -97,6 +105,7 @@ class PiecesShow extends React.Component {
             </div>
             <DiariesCreate
               pieceId={this.state.piece._id}
+              displayFlashMessages={this.props.displayFlashMessages}
               componentDidMount={this.componentDidMount}
             />
             { this.state.piece.diary && this.state.piece.diary.map(entry => {
@@ -104,6 +113,7 @@ class PiecesShow extends React.Component {
                 <DiariesShow
                   key={entry._id}
                   pieceId={this.state.piece._id}
+                  displayFlashMessages={this.props.displayFlashMessages}
                   componentDidMount={this.componentDidMount}
                   data={entry}
                 />

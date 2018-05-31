@@ -13,7 +13,7 @@ class Profile extends React.Component {
 
   componentDidMount() {
     if (!Auth.isAuthenticated()) {
-      Flash.setMessage('danger', '⚠️ You must be signed in! ⚠️');
+      Flash.setMessage('danger', '⚠️ You must be signed in!');
       this.props.displayFlashMessages();
     } else {
       axios
@@ -43,11 +43,18 @@ class Profile extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     axios
-      .post(`/api/users/${Auth.getPayload().sub}/edit`,
+      .put(`/api/users/${Auth.getPayload().sub}/edit`,
         this.state.editedUser,
         { headers: { Authorization: `Bearer ${Auth.getToken()}` }
         })
-      .then(() => this.props.history.push('/profile'));
+      .then(() => {
+        this.props.history.push('/profile');
+        this.props.editingProfileFalse();
+      })
+      .catch(err => {
+        Flash.setMessage('danger', `⚠️ ${err.response.data.errors.username || err.response.data.errors.email}`);
+        this.props.displayFlashMessages();
+      });
   }
 
   handleClose = e => {
@@ -105,7 +112,10 @@ class Profile extends React.Component {
                   </div>
                 </div>
               </div>
-              <button className="save-changes" onClick={this.handleSubmit}>
+              <button
+                className="save-changes"
+                onClick={this.handleSubmit}
+              >
                 <i className="fas fa-save"></i>
                 &nbsp;
                 Save Changes

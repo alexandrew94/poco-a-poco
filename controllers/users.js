@@ -28,8 +28,10 @@ function update(req, res, next) {
       newUser.email = req.body.email;
       newUser.instruments = req.body.instruments;
       Object.assign(user, newUser);
-      res.json(newUser);
       return newUser.save();
+    })
+    .then(newUser => {
+      res.json(newUser);
     })
     .catch(next);
 }

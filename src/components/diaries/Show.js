@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import Auth from '../../lib/Auth';
 import moment from 'moment';
+
+import Auth from '../../lib/Auth';
+import Flash from '../../lib/Flash';
 
 class diariesShow extends React.Component {
   state = {
@@ -43,7 +45,13 @@ class diariesShow extends React.Component {
       .put(`/api/users/${Auth.getPayload().sub}/pieces/${this.props.pieceId}/diary/${this.state.editedEntry._id}`, this.state.editedEntry,
         { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(res => {
+        Flash.setMessage('success', '✅ Log edited!');
+        this.props.displayFlashMessages();
         this.setState({ mode: 'show', entry: res.data });
+      })
+      .catch(() => {
+        Flash.setMessage('danger', '⚠️ Minutes Practiced is required!');
+        this.props.displayFlashMessages();
       });
   }
 

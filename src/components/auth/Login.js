@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import Flash from '../../lib/Flash';
 
 class AuthLogin extends React.Component {
-  state = {};
+  state = {
+    errors: {}
+  };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
@@ -18,6 +21,11 @@ class AuthLogin extends React.Component {
       })
       .then(() => {
         this.props.handleRedirect('/profile');
+      })
+      .catch(err => {
+        this.setState({ errors: err.response.data.errors });
+        Flash.setMessage('danger', '⚠️ Invalid Credentials');
+        this.props.displayFlashMessages();
       });
   }
 

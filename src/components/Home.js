@@ -1,4 +1,7 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+
+import Auth from '../lib/Auth';
 
 import Login from './auth/Login';
 import Signup from './auth/Signup';
@@ -18,6 +21,9 @@ class Home extends React.Component {
   }
 
   render() {
+    if (Auth.isAuthenticated()) {
+      return <Redirect to='/profile' />;
+    }
     return <div className="landing">
       <div className="title-image" style={{ backgroundImage: 'url(../assets/image/landing-image.png)' }}/>
       <h1>poco a poco</h1>
@@ -31,7 +37,10 @@ class Home extends React.Component {
       <div className="authentication-box">
         { this.state.mode === 'login' &&
           <div>
-            <Login handleRedirect={this.handleRedirect}/>
+            <Login
+              displayFlashMessages={this.props.displayFlashMessages}
+              handleRedirect={this.handleRedirect}
+            />
             <div className="signup-prompt">
               Don&apos;t have an account?&nbsp;
               <button onClick={this.toggleMode}>
@@ -45,7 +54,10 @@ class Home extends React.Component {
         }
         { this.state.mode === 'signup' &&
           <div>
-            <Signup handleRedirect={this.handleRedirect}/>
+            <Signup
+              displayFlashMessages={this.props.displayFlashMessages}
+              handleRedirect={this.handleRedirect}
+            />
             <button className="back-to-login" onClick={this.toggleMode}>
               <i className="fas fa-undo-alt"></i>
               &nbsp;
