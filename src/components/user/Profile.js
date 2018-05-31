@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import Auth from '../../lib/Auth';
+import instrumentsLibrary from '../../lib/Instruments';
 
 import PiecesShow from '../pieces/Show';
 
@@ -60,6 +61,10 @@ class Profile extends React.Component {
     return timeInMinutes / 60 > 1 ? `${Math.floor(timeInMinutes/60)} hours, ${timeInMinutes % 60} mins` : `${timeInMinutes} mins`;
   }
 
+  getInstrumentEmoji = (name) => {
+    return instrumentsLibrary.filter(instrument => instrument.name === name)[0].emoji;
+  }
+
   render() {
     return (
       <div>
@@ -78,7 +83,11 @@ class Profile extends React.Component {
             <div className="stats">
               <div className="columns first-row">
                 <div className="column is-6 total-panel">
-                  <h2 className="title">Stats for {this.state.user.username}</h2>
+                  <h2 className="title">
+                    <i className="fas fa-chart-line"></i>
+                    &nbsp;
+                    Stats for {this.state.user.username}
+                  </h2>
                   <div className="total">
                     <h3>A total of</h3>
                     <h2>{this.reformatMinutes(this.state.user.totalPracticed)}</h2>
@@ -97,14 +106,21 @@ class Profile extends React.Component {
             <div className="logs" id="history">
               <div className="columns">
                 <div className="column is-6 left-column">
-                  <h2 className="title">History of {this.state.user.username}</h2>
+                  <h2 className="title">
+                    <i className="fas fa-history"></i>
+                    &nbsp;
+                    History of {this.state.user.username}
+                  </h2>
                   <h3>My instruments:</h3>
                   <div className="scroll-container instruments-log">
                     { this.state.user.instruments.map((instrument, i) => {
                       return <div key={i}>
                         { instrument.playingTime > 0 &&
                           <p key={i}>
-                            <strong>{instrument.name}: </strong>
+                            <strong>
+                              {this.getInstrumentEmoji(instrument.name)}
+                              {instrument.name}:&nbsp;
+                            </strong>
                             practiced for {this.reformatMinutes(instrument.playingTime)} in total
                           </p>
                         }
@@ -184,7 +200,11 @@ class Profile extends React.Component {
           </div>
         }
         <div className="pieces" id="pieces">
-          <h2 className="title">My Pieces</h2>
+          <h2 className="title">
+            <i className="fas fa-music"></i>
+            &nbsp;
+            My Pieces
+          </h2>
           <div className="columns is-multiline">
             <div className="column is-one-third create-new">
               <div>

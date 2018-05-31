@@ -7,6 +7,7 @@ class Navbar extends React.Component {
 
   handleLogout = () => {
     Auth.logout();
+    this.props.editingProfileFalse();
     this.props.history.push('/');
   }
 
@@ -19,7 +20,7 @@ class Navbar extends React.Component {
       <div>
         {Auth.isAuthenticated() &&
         <nav>
-          <div className="navbar-top">
+          { !this.props.editingProfileStatus && <div className="navbar-top">
             <div>
               <a onClick={() => this.smoothScroll('stats')}>
                 <i className="fas fa-chart-line"></i>
@@ -35,10 +36,10 @@ class Navbar extends React.Component {
                 <i className="fas fa-music"></i>
               </a>
             </div>
-          </div>
+          </div>}
           <div className="navbar-bottom">
             <div>
-              <Link to="/profile/edit">
+              <Link onClick={this.props.editingProfileTrue} to="/profile/edit">
                 <i className="fas fa-user-edit"></i>
               </Link>
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import Auth from '../../lib/Auth';
+import instruments from '../../lib/Instruments';
 
 class Signup extends React.Component {
 
@@ -40,39 +41,65 @@ class Signup extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          name="username"
-          placeholder="Username"
-          onChange={this.handleChange}
-        />
-        <input
-          className="input"
-          name="email"
-          placeholder="Email"
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          className="input"
-          name="password"
-          placeholder="Password"
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          className="input"
-          name="passwordConfirmation"
-          placeholder="Password Confirmation"
-          onChange={this.handleChange}
-        />
-        <div>
-          <h4>Select your instruments:</h4>
-          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="piano"/>Piano</label>
-          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="violin"/>Violin</label>
-          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="guitar"/>Guitar</label>
-          <label><input onClick={this.handleInstrumentClick} type="checkbox" value="voice"/>Voice</label>
+        <div className="columns">
+          <div className="column is-half">
+            <input
+              name="username"
+              placeholder="Username"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="column is-half">
+            <input
+              className="input"
+              name="email"
+              placeholder="Email"
+              onChange={this.handleChange}
+            />
+          </div>
         </div>
-        <button>Sign Up</button>
+        <div className="columns">
+          <div className="column is-half">
+            <input
+              type="password"
+              className="input password-field"
+              name="password"
+              placeholder="Password"
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="column is-half">
+            <input
+              type="password"
+              className="input password-field"
+              name="passwordConfirmation"
+              placeholder="Password Confirmation"
+              onChange={this.handleChange}
+            />
+          </div>
+        </div>
+        <div>
+          <div className="instrument-choice">
+            <h4>Select your instruments:</h4>
+            <div className="columns is-multiline">
+              { instruments.map((instrument, i) => {
+                return <div className="column is-one-quarter" key={i}>
+                  <div className="instrument-box">
+                    <h4>{instrument.emoji}</h4>
+                    <h5>{instrument.name}</h5>
+                    <input
+                      onClick={this.handleInstrumentClick}
+                      type="checkbox"
+                      value={instrument.name}
+                      name={instrument.name}
+                    />
+                  </div>
+                </div>;
+              })}
+            </div>
+          </div>
+          <button className="button sign-up"><i className="fas fa-user-plus"></i>Sign Up</button>
+        </div>
       </form>
     );
   }

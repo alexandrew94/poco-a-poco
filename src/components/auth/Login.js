@@ -23,19 +23,27 @@ class AuthLogin extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          name="usernameOrEmail"
-          placeholder="Username Or Email"
-          onChange={this.handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={this.handleChange}
-        />
-        <button>Submit</button>
+      <form onSubmit={this.handleSubmit} className="columns">
+        <div className="column is-one-third">
+          <input
+            name="usernameOrEmail"
+            placeholder="Username Or Email"
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="column is-one-third">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="column">
+          <button>
+            Login
+          </button>
+        </div>
       </form>
     );
   }

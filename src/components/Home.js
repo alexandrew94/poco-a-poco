@@ -19,20 +19,41 @@ class Home extends React.Component {
 
   render() {
     return <div className="landing">
+      <div className="title-image" style={{ backgroundImage: 'url(../assets/image/landing-image.png)' }}/>
       <h1>poco a poco</h1>
-      <img>
-      { this.state.mode === 'login' &&
-        <div>
-          <Login handleRedirect={this.handleRedirect}/>
-          <button onClick={this.toggleMode}>Don&apos;t have an account? Signup instead.</button>
-        </div>
-      }
-      { this.state.mode === 'signup' &&
-      <div>
-        <Signup handleRedirect={this.handleRedirect}/>
-        <button onClick={this.toggleMode}>Go back to Login</button>
+      <div className="staff">
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
       </div>
-      }
+      <div className="authentication-box">
+        { this.state.mode === 'login' &&
+          <div>
+            <Login handleRedirect={this.handleRedirect}/>
+            <div className="signup-prompt">
+              Don&apos;t have an account?&nbsp;
+              <button onClick={this.toggleMode}>
+                <i className="fas fa-user-plus"></i>
+                &nbsp;
+                Signup
+              </button>
+              &nbsp;instead.
+            </div>
+          </div>
+        }
+        { this.state.mode === 'signup' &&
+          <div>
+            <Signup handleRedirect={this.handleRedirect}/>
+            <button className="back-to-login" onClick={this.toggleMode}>
+              <i className="fas fa-undo-alt"></i>
+              &nbsp;
+              Go back to Login
+            </button>
+          </div>
+        }
+      </div>
     </div>;
   }
 }

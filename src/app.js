@@ -13,14 +13,32 @@ import Profile from './components/user/Profile';
 import EditProfile from './components/user/Edit';
 
 class App extends React.Component {
+
+  state = {
+    editingProfile: false
+  }
+
+  editingProfileTrue = () => this.setState({ editingProfile: true });
+
+  editingProfileFalse = () => this.setState({ editingProfile: false });
+
   render() {
     return (
       <Router>
         <div>
-          <Navbar />
+          <Navbar
+            editingProfileStatus={this.state.editingProfile}
+            editingProfileTrue={this.editingProfileTrue}
+            editingProfileFalse={this.editingProfileFalse}
+          />
           <main>
             <Switch>
-              <Route path="/profile/edit" component={EditProfile} />
+              <Route
+                render={(props) => (
+                  <EditProfile {...props} editingProfileFalse={this.editingProfileFalse} />
+                )}
+                path="/profile/edit"
+              />
               <Route path="/profile" component={Profile} />
               <Route exact path="/" component={Home} />
             </Switch>

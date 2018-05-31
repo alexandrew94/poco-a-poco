@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import instruments from '../../lib/Instruments';
 
 class Profile extends React.Component {
   state = {
@@ -42,36 +43,73 @@ class Profile extends React.Component {
       .then(() => this.props.history.push('/profile'));
   }
 
-  handleClose = () => this.props.history.push('/profile');
+  handleClose = e => {
+    e.preventDefault();
+    this.props.editingProfileFalse();
+    this.props.history.push('/profile');
+  };
 
   render() {
     return (
       <div>
         <form>
           { this.state.user.username &&
-            <div>
-              <input
-                name="username"
-                value={this.state.editedUser.username}
-                onChange={this.handleChange}
-              />
-              <input
-                name="email"
-                value={this.state.editedUser.email}
-                onChange={this.handleChange}
-              />
-              <div>
-                <h4>Select your instruments:</h4>
-                <label><input defaultChecked={this.checkInstrument('piano')} onClick={this.handleInstrumentClick} type="checkbox" value="piano"/>Piano</label>
-                <label><input defaultChecked={this.checkInstrument('violin')} onClick={this.handleInstrumentClick} type="checkbox" value="violin"/>Violin</label>
-                <label><input defaultChecked={this.checkInstrument('guitar')} onClick={this.handleInstrumentClick} type="checkbox" value="guitar"/>Guitar</label>
-                <label><input defaultChecked={this.checkInstrument('voice')} onClick={this.handleInstrumentClick} type="checkbox" value="voice"/>Voice</label>
+            <div className="user-edit">
+              <div className="columns">
+                <div className="column is-half">
+                  <label htmlFor="username">Username:</label>
+                  <input
+                    name="username"
+                    value={this.state.editedUser.username}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="column is-half">
+                  <label htmlFor="username">Email:</label>
+                  <input
+                    name="email"
+                    value={this.state.editedUser.email}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </div>
-              <button onClick={this.handleSubmit}>Save Changes</button>
+              <div>
+                <div className="instrument-choice">
+                  <h4>Edit your instruments:</h4>
+                  <div className="columns is-multiline">
+                    { instruments.map((instrument, i) => {
+                      return <div className="column is-one-quarter" key={i}>
+                        <div className="instrument-box">
+                          <h4>{instrument.emoji}</h4>
+                          <h5>{instrument.name}</h5>
+                          <input
+                            defaultChecked={this.checkInstrument(instrument.name)}
+                            onClick={this.handleInstrumentClick}
+                            type="checkbox"
+                            value={instrument.name}
+                            name={instrument.name}
+                          />
+                        </div>
+                      </div>;
+                    })}
+                  </div>
+                </div>
+              </div>
+              <button className="save-changes" onClick={this.handleSubmit}>
+                <i className="fas fa-save"></i>
+                &nbsp;
+                Save Changes
+              </button>
+              <button
+                className="close-without-saving"
+                onClick={this.handleClose}>
+                <i className="fas fa-undo"></i>
+                &nbsp;
+                Close without saving
+              </button>
             </div>
           }
         </form>
-        <button onClick={this.handleClose}>Close without saving</button>
       </div>
     );
   }
