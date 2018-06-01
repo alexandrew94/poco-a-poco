@@ -13,7 +13,9 @@ class PiecesShow extends React.Component {
   state = {
     editMode: false,
     editedPiece: {},
-    piece: {}
+    piece: {
+      suggestedComposer: ''
+    }
   }
 
   componentDidMount = () => {
@@ -33,7 +35,23 @@ class PiecesShow extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ editedPiece: { ...this.state.editedPiece, [name]: value }});
+    this.setState({ editedPiece: { ...this.state.piece, [name]: value }});
+    if (name === 'composer' && value) {
+      const formattedValue = value.split(' ').join('%20');
+      axios
+        .get(`/api/wikimedia/composers/${formattedValue}`)
+        .then(res => {
+          if (res.data.query.redirects) {
+            this.setState({ editedPiece: { ...this.state.editedPiece, suggestedComposer: res.data.query.redirects[0].to}});
+          } else {
+            this.setState({ editedPiece: { ...this.state.editedPiece, suggestedComposer: '' }});
+          }
+        });
+    }
+  }
+
+  handleSuggestedComposer = () => {
+    this.setState({ ...this.state, editedPiece: { ...this.state.editedPiece, composer: this.state.editedPiece.suggestedComposer }});
   }
 
   findSelectedInstrument = formInstrument => this.state.piece.instrument === formInstrument;
@@ -108,7 +126,9 @@ class PiecesShow extends React.Component {
               displayFlashMessages={this.props.displayFlashMessages}
               componentDidMount={this.componentDidMount}
             />
-            { this.state.piece.diary && this.state.piece.diary.map(entry => {
+            { this.state.piece.diary && this.state.piece.diary.sort((a, b) => {
+              return a.timeLogged < b.timeLogged;
+            }).map(entry => {
               return (
                 <DiariesShow
                   key={entry._id}
@@ -136,6 +156,15 @@ class PiecesShow extends React.Component {
               <div className="field">
                 <label htmlFor="composer">Composer</label>
                 <input name="composer" value={this.state.editedPiece.composer} onChange={this.handleChange}></input>
+                { this.state.editedPiece.composer && this.state.editedPiece.suggestedComposer &&
+                  <p className="autocorrect">Did you mean:
+                    &nbsp;
+                  <span onClick={this.handleSuggestedComposer}>
+                    {this.state.editedPiece.suggestedComposer}
+                  </span>?
+                    &nbsp;
+                  </p>
+                }
               </div>
               <div className="field">
                 <label htmlFor="instrument">Instrument</label>

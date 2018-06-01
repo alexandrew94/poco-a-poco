@@ -119,7 +119,7 @@ class Profile extends React.Component {
       <div>
         { this.state.user &&
           <div>
-            <header id="stats">
+            <header>
               <div className="page-title">
                 <h1>poco a poco</h1>
               </div>
@@ -129,7 +129,7 @@ class Profile extends React.Component {
               <div className="stave"/>
               <div className="stave"/>
             </header>
-            <div className="stats">
+            <div className="stats" id="stats">
               <div className="columns first-row">
                 <div className="column is-6 total-panel">
                   <h2 className="title">
@@ -183,10 +183,12 @@ class Profile extends React.Component {
                     { this.state.user.composersLog && Object.keys(this.state.user.composersLog).sort((a, b) => {
                       return this.state.user.composersLog[a] < this.state.user.composersLog[b];
                     }).map((logKey, i) => {
-                      return <p key={i}>
-                        <strong>{logKey}: </strong>
-                        practiced for {this.reformatMinutes(this.state.user.composersLog[logKey])}
-                      </p>;
+                      if (logKey !== 'undefined') {
+                        return <p key={i}>
+                          <strong>{logKey}: </strong>
+                          practiced for {this.reformatMinutes(this.state.user.composersLog[logKey])}
+                        </p>;
+                      }
                     }) }
                   </div>
                 </div>
@@ -262,7 +264,7 @@ class Profile extends React.Component {
             </div>
           </div>
         }
-        <div className="pieces" id="pieces">
+        <div className="pieces">
           <h2 className="title">
             <i className="fas fa-music"></i>
             &nbsp;
@@ -279,13 +281,13 @@ class Profile extends React.Component {
                 <button onClick={this.toggleCreateMode}>
                   <i className="fas fa-plus"></i>
                 </button>
-                <h2>Create New Piece</h2>
+                <h2 id="pieces">Create New Piece</h2>
               </div>
             </div>
             { this.state.user && this.filteredPieces().map(piece =>
               <div className="column is-one-third" key={piece._id}>
                 <div className="title-box">
-                  <h2>{piece.composer}:</h2>
+                  { piece.composer && <h2>{piece.composer}:</h2>}
                   <h3>{piece.title}</h3>
                   <h4>({piece.instrument})</h4>
                 </div>

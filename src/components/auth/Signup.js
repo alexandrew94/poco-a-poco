@@ -8,6 +8,7 @@ import instruments from '../../lib/Instruments';
 class Signup extends React.Component {
 
   state = {
+    customInstrument: '',
     instruments: [],
     accountCreated: moment().format('YYYY-MM-DD')
   };
@@ -41,6 +42,16 @@ class Signup extends React.Component {
     }
     return this.setState({ instruments: [ ...this.state.instruments, { name: value }]});
   }
+
+  // handleInstrumentChange = ({ target: { value }}) => {
+  //   this.setState({ customInstrument: value }, () => console.log(this.state));
+  // }
+  //
+  // handleInstrumentSubmit = e => {
+  //   e.preventDefault();
+  //   const newInstrumentsArray = [ ...this.state.instruments, { name: this.state.customInstrument }];
+  //   this.setState({ ...this.state, customInstrument: '', instruments: newInstrumentsArray });
+  // }
 
   render() {
     return (
@@ -100,7 +111,29 @@ class Signup extends React.Component {
                   </div>
                 </div>;
               })}
+              {/* { this.state.instruments.map(instrument => instrument.name).map(instrumentName => {
+                if (!instruments.map(instrument => instrument.name).includes(instrumentName)) {
+                  return { name: instrumentName };
+                }
+              }).map((instrument, i) => {
+                return <div className="column is-one-quarter" key={i}>
+                  <div className="instrument-box">
+                    <h4>🎶</h4>
+                    <h5>{instrument.name}</h5>
+                    <input
+                      onClick={this.handleInstrumentClick}
+                      type="checkbox"
+                      value={instrument.name}
+                      name={instrument.name}
+                    />
+                  </div>
+                </div>;
+              })} */}
             </div>
+            {/* <div>
+              <input onChange={this.handleInstrumentChange} />
+              <button onClick={this.handleInstrumentSubmit}>Add custom instrument</button>
+            </div> */}
           </div>
           <button className="button sign-up"><i className="fas fa-user-plus"></i>Sign Up</button>
         </div>

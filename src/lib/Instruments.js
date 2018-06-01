@@ -20,6 +20,9 @@ const instruments = [
   }, {
     name: 'voice',
     emoji: '🎤'
+  }, {
+    name: 'other',
+    emoji: '🎶'
   }
 ];
 

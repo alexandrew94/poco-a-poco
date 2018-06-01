@@ -109,6 +109,20 @@
             border: 3px solid $tertiary-color;
           }
 
+          .add-and-minus {
+
+            button {
+              width: 40px;
+              height: 40px;
+              font-size: 24px;
+              text-align: center;
+              border: 0px;
+              border-radius: 100%;
+              cursor: pointer;
+              margin: 0 7px;
+            }
+          }
+
           button {
             font-weight: 600;
             width: 100%;
@@ -193,6 +207,7 @@
         height: 25px;
         width: 25px;
         text-align: center;
+        cursor: pointer;
       }
 
       button.edit {
@@ -202,6 +217,7 @@
         margin-right: 15px;
         border: 0;
         background-color: $tertiary-color;
+        cursor: pointer;
       }
 
       .diary-edit {
@@ -246,6 +262,8 @@
             font-size: 16px;
             color: white;
             font-weight: 600;
+            cursor: pointer;
+            border: 0;
 
             &.save {
               background-color: $secondary-color;

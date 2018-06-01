@@ -11,6 +11,7 @@ class diariesCreate extends React.Component {
     displayDate: null,
     expandedMode: false,
     newEntry: {
+      timePracticed: 10,
       timeLogged: moment().format('YYYY-MM-DD')
     }
   }
@@ -28,6 +29,7 @@ class diariesCreate extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log('LOGGING NEW ENTRY BEFORE', this.state.newEntry);
     axios
       .post(`/api/users/${Auth.getPayload().sub}/pieces/${this.props.pieceId}/diary`,
         this.state.newEntry,
@@ -37,7 +39,7 @@ class diariesCreate extends React.Component {
         this.props.displayFlashMessages();
         this.closeExpandedMode();
         this.props.componentDidMount();
-        this.setState({ newEntry: { timeLogged: moment().format('YYYY-MM-DD') } });
+        this.setState({ newEntry: { timeLogged: moment().format('YYYY-MM-DD'), timePracticed: 10 }}, () => console.log(this.state.newEntry));
       })
       .catch(() => {
         Flash.setMessage('danger', '🚫 Minutes Practiced cannot be blank');
@@ -59,6 +61,12 @@ class diariesCreate extends React.Component {
     this.setState({ displayDate: moment(date).calendar().split(' at')[0] });
   }
 
+  handleTimePracticedAddition = e => {
+    e.preventDefault();
+    const newTimePracticed = this.state.newEntry.timePracticed + parseInt(e.target.value);
+    this.setState({ ...this.state, newEntry: { ...this.state.newEntry, timePracticed: newTimePracticed }});
+  }
+
   render () {
     return(
       <div className="diary-create">
@@ -73,6 +81,11 @@ class diariesCreate extends React.Component {
           <div className="input-section">
             <label htmlFor="timePracticed">Minutes Practiced:</label>
             <input name="timePracticed" placeholder="Minutes Practiced" onChange={this.handleChange} value={this.state.newEntry.timePracticed || ''}/>
+            <small className="add-and-minus">
+              <button value="-5" onClick={this.handleTimePracticedAddition}>-5</button>
+              &nbsp;
+              <button value="+5" onClick={this.handleTimePracticedAddition}>+5</button>
+            </small>
             { !this.state.expandedMode &&
               <button className="button" onClick={this.openExpandedMode}>
                 <i className="fas fa-book"></i>

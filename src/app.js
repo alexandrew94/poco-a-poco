@@ -27,8 +27,6 @@ class App extends React.Component {
 
   displayFlashMessages = () => {
     const messages = Flash.getMessages();
-    console.log('inside of flash messages');
-    console.log(this.state.messages);
 
     if(!messages) return false;
 
