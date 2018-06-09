@@ -35,7 +35,7 @@ class PiecesShow extends React.Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState({ editedPiece: { ...this.state.piece, [name]: value }});
+    this.setState({ editedPiece: { ...this.state.piece, [name]: value }}, () => console.log(this.state));
     if (name === 'composer' && value) {
       const formattedValue = value.split(' ').join('%20');
       axios

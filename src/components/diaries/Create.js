@@ -29,7 +29,6 @@ class diariesCreate extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log('LOGGING NEW ENTRY BEFORE', this.state.newEntry);
     axios
       .post(`/api/users/${Auth.getPayload().sub}/pieces/${this.props.pieceId}/diary`,
         this.state.newEntry,
@@ -39,7 +38,7 @@ class diariesCreate extends React.Component {
         this.props.displayFlashMessages();
         this.closeExpandedMode();
         this.props.componentDidMount();
-        this.setState({ newEntry: { timeLogged: moment().format('YYYY-MM-DD'), timePracticed: 10 }}, () => console.log(this.state.newEntry));
+        this.setState({ newEntry: { timeLogged: moment().format('YYYY-MM-DD'), timePracticed: 10 }});
       })
       .catch(() => {
         Flash.setMessage('danger', '🚫 Minutes Practiced cannot be blank');
@@ -64,6 +63,7 @@ class diariesCreate extends React.Component {
   handleTimePracticedAddition = e => {
     e.preventDefault();
     const newTimePracticed = this.state.newEntry.timePracticed + parseInt(e.target.value);
+    console.log(parseInt(e.target.value));
     this.setState({ ...this.state, newEntry: { ...this.state.newEntry, timePracticed: newTimePracticed }});
   }
 
@@ -80,9 +80,14 @@ class diariesCreate extends React.Component {
           </div>
           <div className="input-section">
             <label htmlFor="timePracticed">Minutes Practiced:</label>
-            <input name="timePracticed" placeholder="Minutes Practiced" onChange={this.handleChange} value={this.state.newEntry.timePracticed || ''}/>
+            <input type="number" name="timePracticed" placeholder="Minutes Practiced" onChange={this.handleChange} value={this.state.newEntry.timePracticed || ''}/>
             <small className="add-and-minus">
-              <button value="-5" onClick={this.handleTimePracticedAddition}>-5</button>
+              { !this.state.newEntry.timePracticed > 0 &&
+                <button disabled value="-5">-5</button>
+              }
+              { this.state.newEntry.timePracticed > 0 &&
+                <button value="-5" onClick={this.handleTimePracticedAddition}>-5</button>
+              }
               &nbsp;
               <button value="+5" onClick={this.handleTimePracticedAddition}>+5</button>
             </small>
