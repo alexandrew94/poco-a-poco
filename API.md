@@ -12,9 +12,19 @@ All endpoints except authentication endpoints require the user to be authenticat
 
 ---
 
-## Authentication
+## Contents
 
-#### Login
+* [Authentication](#authentication)
+  * [Login](#login)
+  * [Sign Up](#sign-up)
+* [Users](#users)
+  * [Users Index](#users-index)
+
+---
+
+## <a name="authentication">Authentication</a>
+
+#### <a name="login">Login</a>
 
 Logs you in and gives you the token required for all non-authentication endpoints.
 
@@ -63,7 +73,7 @@ Logs you in and gives you the token required for all non-authentication endpoint
 	}
 	```
 
-#### Sign Up
+#### <a name="sign-up">Sign Up</a>
 
 Creates your account and gives you the token required for all non-authentication endpoints.
 
@@ -111,9 +121,9 @@ Creates your account and gives you the token required for all non-authentication
 	}
 	```
 	
-## Users
+## <a name="users">Users</a>
 
-#### All Users
+#### <a name="users-index">All Users</a>
 
 Gets all data for all users. This particular endpoint is mostly for the purposes of getting a quick overview of all the users' data - no request is made to it from the front-end in ordinary use of the app.
 
