@@ -26,7 +26,9 @@ function update(req, res, next) {
       const newUser = user;
       newUser.username = req.body.username;
       newUser.email = req.body.email;
-      newUser.instruments = req.body.instruments;
+      if (newUser.instruments.length) {
+        newUser.instruments = req.body.instruments;
+      }
       Object.assign(user, newUser);
       return newUser.save();
     })

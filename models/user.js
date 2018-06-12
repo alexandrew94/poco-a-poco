@@ -84,15 +84,18 @@ userSchema
 
 userSchema
   .post('init', function calculateInstruments(){
-    this.instruments.forEach(instrument => {
-      let playingTime = 0;
-      if (this.pieces) {
-        this.pieces.forEach(piece => {
-          piece.instrument === instrument.name ? playingTime += piece.totalPracticed : null;
-        });
-      }
-      return Object.assign(instrument, { ...instrument, playingTime });
-    });
+    if (this.instruments.length) {
+      this.instruments.forEach(instrument => {
+        let playingTime = 0;
+        if (this.pieces) {
+          this.pieces.forEach(piece => {
+            piece.instrument === instrument.name ? playingTime += piece.totalPracticed : null;
+          });
+        }
+        return Object.assign(instrument, { ...instrument, playingTime });
+      });
+    }
+    return [];
   });
 
 
