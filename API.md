@@ -24,7 +24,6 @@ Logs you in and gives you the token required for all non-authentication endpoint
 * Success Response:
   * Code: `200 Success`
   * Content:
-
 	```javascript
   {
 	"message": "Welcome back, Andrew! 😊😊",
@@ -52,7 +51,6 @@ Logs you in and gives you the token required for all non-authentication endpoint
 * Error Response:
   * Code: `401 Unauthorized`
   * Content:
-
 	```{ "message": "Unauthorized" }```
 
 #### Sign Up
@@ -69,7 +67,6 @@ Creates your account and gives you the token required for all non-authentication
 * Success Response:
   * Code: `200 Success`
   * Content:
-
 	```javascript
 {
 	"message": "You've successfully registered, Andrew! 👏🎉",
@@ -90,7 +87,6 @@ Creates your account and gives you the token required for all non-authentication
 * Error Response:
   * Code: `422 Unprocessable Entity`
   * Content:
-
   ```
   {
 		"message": "Unprocessable Entity",
@@ -111,7 +107,6 @@ Gets all data for all users.
 * Success Response:
   * Code: `200 Success`
   * Content:
-
 	```[
 	{
 		"instruments": [
