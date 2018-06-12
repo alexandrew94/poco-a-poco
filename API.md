@@ -19,6 +19,7 @@ All endpoints except authentication endpoints require the user to be authenticat
   * [Sign Up](#sign-up)
 * [Users](#users)
   * [Users Index](#users-index)
+  * [Users Show](#users-show)
 
 ---
 
@@ -290,4 +291,110 @@ Gets all data for all users. This particular endpoint is mostly for the purposes
 			"id": "abcdefg-1234567"
 		}
 	]
+	```
+	
+#### <a name="users-show">Users Show</a>
+
+Shows all the data for a single user, giving more detailed practice data - the `practiceLog` and the `composersLog` for each user.
+
+* URL: `/api/users/<userid>`
+* Method: `GET`
+* Success Response:
+  * Code: `200 Success`
+  * Content:
+
+	```javascript
+	{
+		"instruments": [
+			{
+				"name": "violin",
+				"playingTime": 30
+			},
+			{
+				"name": "piano",
+				"playingTime": 30
+			}
+		],
+		"_id": "abcdefg-1234567",
+		"email": "a@a",
+		"username": "a",
+		"accountCreated": "2018-05-20",
+		"__v": 0,
+		"pieces": [
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece1",
+				"composer": "composer1",
+				"description": "description1",
+				"user": "abcdefg-1234567",
+				"instrument": "piano",
+				"startedAt": "2018-05-28",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-28",
+						"timePracticed": 10,
+						"notes": "diaryentry1",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry1"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-27",
+						"timePracticed": 20,
+						"notes": "diaryentry2",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry2"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description1",
+				"id": "abcdefg-1234567"
+			},
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece2",
+				"composer": "composer2",
+				"description": "description2",
+				"instrument": "violin",
+				"user": "abcdefg-1234567",
+				"startedAt": "2018-05-24",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-26",
+						"timePracticed": 10,
+						"notes": "diaryentry3",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry3"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-25",
+						"timePracticed": 20,
+						"notes": "diaryentry4",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry4"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description2",
+				"id": "abcdefg-1234567"
+			}
+		],
+		"totalPracticed": 60,
+		"practiceLog": {
+			"2018-05-28": 10,
+			"2018-05-27": 20,
+			"2018-05-26": 10,
+			"2018-05-25": 20
+		},
+		"composersLog": {
+			"composer1": 30,
+			"composer2": 30
+		},
+		"id": "abcdefg-1234567"
+	}
 	```
