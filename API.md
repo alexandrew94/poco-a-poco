@@ -24,33 +24,35 @@ Logs you in and gives you the token required for all non-authentication endpoint
 * Success Response:
   * Code: `200 Success`
   * Content:
-	```javascript
+
+	`
   {
-	"message": "Welcome back, Andrew! 😊😊",
-	"token": "some-token-value-1234567890",
-	"user": {
-		"instruments": [
-			{
-				"name": "violin",
-				"playingTime": 10
-			},
-			{
-				"name": "piano",
-				"playingTime": 20
-			}
-		],
-		"_id": "abcdefg-1234567",
-		"email": "someemail@someemail",
-		"username": "Andrew",
-		"accountCreated": "2018-05-20",
-		"pieces": null,
-		"id": "abcdefg-1234567"
-	}
+		"message": "Welcome back, Andrew! 😊😊",
+		"token": "some-token-value-1234567890",
+		"user": {
+			"instruments": [
+				{
+					"name": "violin",
+					"playingTime": 10
+				},
+				{
+					"name": "piano",
+					"playingTime": 20
+				}
+			],
+			"_id": "abcdefg-1234567",
+			"email": "someemail@someemail",
+			"username": "Andrew",
+			"accountCreated": "2018-05-20",
+			"pieces": null,
+			"id": "abcdefg-1234567"
+		}
 }
-```
+`
 * Error Response:
   * Code: `401 Unauthorized`
   * Content:
+
 	```{ "message": "Unauthorized" }```
 
 #### Sign Up
@@ -67,7 +69,7 @@ Creates your account and gives you the token required for all non-authentication
 * Success Response:
   * Code: `200 Success`
   * Content:
-	```javascript
+	`
 {
 	"message": "You've successfully registered, Andrew! 👏🎉",
 	"token": "some-token-value-1234567890",
@@ -83,18 +85,18 @@ Creates your account and gives you the token required for all non-authentication
 		"id": "abcdefg-1234567"
 	}
 }
-	```
+	`
 * Error Response:
   * Code: `422 Unprocessable Entity`
   * Content:
-  ```
+  `
   {
 		"message": "Unprocessable Entity",
 		"errors": {
 			"email": "Some error message"
 		}
 	}
-	```
+	`
 	
 ## Users
 
@@ -107,7 +109,8 @@ Gets all data for all users.
 * Success Response:
   * Code: `200 Success`
   * Content:
-	```[
+
+	`[
 	{
 		"instruments": [
 			{
@@ -263,4 +266,4 @@ Gets all data for all users.
 		"id": "5b1fdbabc6e9c3d2e8444e63"
 	}
 ]
-```
+`
