@@ -49,6 +49,7 @@ Logs you in and gives you the token required for all non-authentication endpoint
 	}
 }
 	```
+	
 * Error Response:
   * Code: `401 Unauthorized`
   * Content:
@@ -91,17 +92,18 @@ Creates your account and gives you the token required for all non-authentication
 	}
 }
 	```
+	
 * Error Response:
   * Code: `422 Unprocessable Entity`
   * Content:
 
   	```javascript
-{
-	"message": "Unprocessable Entity",
-	"errors": {
-		"email": "Some error message"
+	{
+		"message": "Unprocessable Entity",
+		"errors": {
+			"email": "Some error message"
+		}
 	}
-}
 	```
 	
 ## Users
@@ -117,160 +119,160 @@ Gets all data for all users.
   * Content:
 
 	```javascript
-[
-	{
-		"instruments": [
-			{
-				"name": "violin",
-				"playingTime": 30
+	[
+		{
+			"instruments": [
+				{
+					"name": "violin",
+					"playingTime": 30
+				},
+				{
+					"name": "piano",
+					"playingTime": 30
+				}
+			],
+			"_id": "5b1fdbabc6e9c3d2e8444e61",
+			"email": "a@a",
+			"username": "a",
+			"accountCreated": "2018-05-20",
+			"__v": 0,
+			"pieces": [
+				{
+					"_id": "5b1fdbabc6e9c3d2e8444e64",
+					"title": "piece1",
+					"composer": "composer1",
+					"description": "description1",
+					"user": "5b1fdbabc6e9c3d2e8444e61",
+					"instrument": "piano",
+					"startedAt": "2018-05-28",
+					"diary": [
+						{
+							"_id": "5b1fdbabc6e9c3d2e8444e66",
+							"timeLogged": "2018-05-28",
+							"timePracticed": 10,
+							"notes": "diaryentry1",
+							"id": "5b1fdbabc6e9c3d2e8444e66",
+							"shortNotes": "diaryentry1"
+						},
+						{
+							"_id": "5b1fdbabc6e9c3d2e8444e65",
+							"timeLogged": "2018-05-27",
+							"timePracticed": 20,
+							"notes": "diaryentry2",
+							"id": "5b1fdbabc6e9c3d2e8444e65",
+							"shortNotes": "diaryentry2"
+						}
+					],
+					"__v": 0,
+					"totalPracticed": 30,
+					"shortDescription": "description1",
+					"id": "5b1fdbabc6e9c3d2e8444e64"
+				},
+				{
+					"_id": "5b1fdbabc6e9c3d2e8444e67",
+					"title": "piece2",
+					"composer": "composer2",
+					"description": "description2",
+					"instrument": "violin",
+					"user": "5b1fdbabc6e9c3d2e8444e61",
+					"startedAt": "2018-05-24",
+					"diary": [
+						{
+							"_id": "5b1fdbabc6e9c3d2e8444e69",
+							"timeLogged": "2018-05-26",
+							"timePracticed": 10,
+							"notes": "diaryentry3",
+							"id": "5b1fdbabc6e9c3d2e8444e69",
+							"shortNotes": "diaryentry3"
+						},
+						{
+							"_id": "5b1fdbabc6e9c3d2e8444e68",
+							"timeLogged": "2018-05-25",
+							"timePracticed": 20,
+							"notes": "diaryentry4",
+							"id": "5b1fdbabc6e9c3d2e8444e68",
+							"shortNotes": "diaryentry4"
+						}
+					],
+					"__v": 0,
+					"totalPracticed": 30,
+					"shortDescription": "description2",
+					"id": "5b1fdbabc6e9c3d2e8444e67"
+				}
+			],
+			"totalPracticed": 60,
+			"practiceLog": {
+				"2018-05-28": 10,
+				"2018-05-27": 20,
+				"2018-05-26": 10,
+				"2018-05-25": 20
 			},
-			{
-				"name": "piano",
-				"playingTime": 30
-			}
-		],
-		"_id": "5b1fdbabc6e9c3d2e8444e61",
-		"email": "a@a",
-		"username": "a",
-		"accountCreated": "2018-05-20",
-		"__v": 0,
-		"pieces": [
-			{
-				"_id": "5b1fdbabc6e9c3d2e8444e64",
-				"title": "piece1",
-				"composer": "composer1",
-				"description": "description1",
-				"user": "5b1fdbabc6e9c3d2e8444e61",
-				"instrument": "piano",
-				"startedAt": "2018-05-28",
-				"diary": [
-					{
-						"_id": "5b1fdbabc6e9c3d2e8444e66",
-						"timeLogged": "2018-05-28",
-						"timePracticed": 10,
-						"notes": "diaryentry1",
-						"id": "5b1fdbabc6e9c3d2e8444e66",
-						"shortNotes": "diaryentry1"
-					},
-					{
-						"_id": "5b1fdbabc6e9c3d2e8444e65",
-						"timeLogged": "2018-05-27",
-						"timePracticed": 20,
-						"notes": "diaryentry2",
-						"id": "5b1fdbabc6e9c3d2e8444e65",
-						"shortNotes": "diaryentry2"
-					}
-				],
-				"__v": 0,
-				"totalPracticed": 30,
-				"shortDescription": "description1",
-				"id": "5b1fdbabc6e9c3d2e8444e64"
+			"composersLog": {
+				"composer1": 30,
+				"composer2": 30
 			},
-			{
-				"_id": "5b1fdbabc6e9c3d2e8444e67",
-				"title": "piece2",
-				"composer": "composer2",
-				"description": "description2",
-				"instrument": "violin",
-				"user": "5b1fdbabc6e9c3d2e8444e61",
-				"startedAt": "2018-05-24",
-				"diary": [
-					{
-						"_id": "5b1fdbabc6e9c3d2e8444e69",
-						"timeLogged": "2018-05-26",
-						"timePracticed": 10,
-						"notes": "diaryentry3",
-						"id": "5b1fdbabc6e9c3d2e8444e69",
-						"shortNotes": "diaryentry3"
-					},
-					{
-						"_id": "5b1fdbabc6e9c3d2e8444e68",
-						"timeLogged": "2018-05-25",
-						"timePracticed": 20,
-						"notes": "diaryentry4",
-						"id": "5b1fdbabc6e9c3d2e8444e68",
-						"shortNotes": "diaryentry4"
-					}
-				],
-				"__v": 0,
-				"totalPracticed": 30,
-				"shortDescription": "description2",
-				"id": "5b1fdbabc6e9c3d2e8444e67"
-			}
-		],
-		"totalPracticed": 60,
-		"practiceLog": {
-			"2018-05-28": 10,
-			"2018-05-27": 20,
-			"2018-05-26": 10,
-			"2018-05-25": 20
+			"id": "5b1fdbabc6e9c3d2e8444e61"
 		},
-		"composersLog": {
-			"composer1": 30,
-			"composer2": 30
+		{
+			"instruments": [
+				{
+					"name": "violin",
+					"playingTime": 0
+				}
+			],
+			"_id": "5b1fdbabc6e9c3d2e8444e62",
+			"email": "b@b",
+			"username": "b",
+			"accountCreated": "2018-05-20",
+			"__v": 0,
+			"pieces": [
+				{
+					"_id": "5b1fdbabc6e9c3d2e8444e6a",
+					"title": "piece3",
+					"composer": "composer3",
+					"description": "description3",
+					"instrument": "violin",
+					"startedAt": "2018-05-24",
+					"user": "5b1fdbabc6e9c3d2e8444e62",
+					"diary": [],
+					"__v": 0,
+					"totalPracticed": 0,
+					"shortDescription": "description3",
+					"id": "5b1fdbabc6e9c3d2e8444e6a"
+				},
+				{
+					"_id": "5b1fdbabc6e9c3d2e8444e6b",
+					"title": "piece4",
+					"composer": "composer4",
+					"description": "description4",
+					"instrument": "violin",
+					"startedAt": "2018-05-24",
+					"user": "5b1fdbabc6e9c3d2e8444e62",
+					"diary": [],
+					"__v": 0,
+					"totalPracticed": 0,
+					"shortDescription": "description4",
+					"id": "5b1fdbabc6e9c3d2e8444e6b"
+				}
+			],
+			"totalPracticed": 0,
+			"id": "5b1fdbabc6e9c3d2e8444e62"
 		},
-		"id": "5b1fdbabc6e9c3d2e8444e61"
-	},
-	{
-		"instruments": [
-			{
-				"name": "violin",
-				"playingTime": 0
-			}
-		],
-		"_id": "5b1fdbabc6e9c3d2e8444e62",
-		"email": "b@b",
-		"username": "b",
-		"accountCreated": "2018-05-20",
-		"__v": 0,
-		"pieces": [
-			{
-				"_id": "5b1fdbabc6e9c3d2e8444e6a",
-				"title": "piece3",
-				"composer": "composer3",
-				"description": "description3",
-				"instrument": "violin",
-				"startedAt": "2018-05-24",
-				"user": "5b1fdbabc6e9c3d2e8444e62",
-				"diary": [],
-				"__v": 0,
-				"totalPracticed": 0,
-				"shortDescription": "description3",
-				"id": "5b1fdbabc6e9c3d2e8444e6a"
-			},
-			{
-				"_id": "5b1fdbabc6e9c3d2e8444e6b",
-				"title": "piece4",
-				"composer": "composer4",
-				"description": "description4",
-				"instrument": "violin",
-				"startedAt": "2018-05-24",
-				"user": "5b1fdbabc6e9c3d2e8444e62",
-				"diary": [],
-				"__v": 0,
-				"totalPracticed": 0,
-				"shortDescription": "description4",
-				"id": "5b1fdbabc6e9c3d2e8444e6b"
-			}
-		],
-		"totalPracticed": 0,
-		"id": "5b1fdbabc6e9c3d2e8444e62"
-	},
-	{
-		"instruments": [
-			{
-				"name": "violin",
-				"playingTime": 0
-			}
-		],
-		"_id": "5b1fdbabc6e9c3d2e8444e63",
-		"email": "c@c",
-		"username": "c",
-		"accountCreated": "2018-05-20",
-		"__v": 0,
-		"pieces": [],
-		"totalPracticed": 0,
-		"id": "5b1fdbabc6e9c3d2e8444e63"
-	}
-]
+		{
+			"instruments": [
+				{
+					"name": "violin",
+					"playingTime": 0
+				}
+			],
+			"_id": "5b1fdbabc6e9c3d2e8444e63",
+			"email": "c@c",
+			"username": "c",
+			"accountCreated": "2018-05-20",
+			"__v": 0,
+			"pieces": [],
+			"totalPracticed": 0,
+			"id": "5b1fdbabc6e9c3d2e8444e63"
+		}
+	]
 	```
