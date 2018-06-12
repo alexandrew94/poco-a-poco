@@ -84,7 +84,7 @@ Creates your account and gives you the token required for all non-authentication
   * `email: 'string@string'` (must be unique and have an @)
   * `password: 'string'`
   * `passwordConfirmation: 'string'`
-  * `instruments: ['string', 'string', 'string']`
+  * `instruments: ['string', 'string', 'string']` (must at least have 1 instrument)
 * Success Response:
   * Code: `200 Success`
   * Content:
@@ -146,73 +146,73 @@ Gets all data for all users. This particular endpoint is mostly for the purposes
 					"playingTime": 30
 				}
 			],
-			"_id": "5b1fdbabc6e9c3d2e8444e61",
+			"_id": "abcdefg-1234567",
 			"email": "a@a",
 			"username": "a",
 			"accountCreated": "2018-05-20",
 			"__v": 0,
 			"pieces": [
 				{
-					"_id": "5b1fdbabc6e9c3d2e8444e64",
+					"_id": "abcdefg-1234567",
 					"title": "piece1",
 					"composer": "composer1",
 					"description": "description1",
-					"user": "5b1fdbabc6e9c3d2e8444e61",
+					"user": "abcdefg-1234567",
 					"instrument": "piano",
 					"startedAt": "2018-05-28",
 					"diary": [
 						{
-							"_id": "5b1fdbabc6e9c3d2e8444e66",
+							"_id": "abcdefg-1234567",
 							"timeLogged": "2018-05-28",
 							"timePracticed": 10,
 							"notes": "diaryentry1",
-							"id": "5b1fdbabc6e9c3d2e8444e66",
+							"id": "abcdefg-1234567",
 							"shortNotes": "diaryentry1"
 						},
 						{
-							"_id": "5b1fdbabc6e9c3d2e8444e65",
+							"_id": "abcdefg-1234567",
 							"timeLogged": "2018-05-27",
 							"timePracticed": 20,
 							"notes": "diaryentry2",
-							"id": "5b1fdbabc6e9c3d2e8444e65",
+							"id": "abcdefg-1234567",
 							"shortNotes": "diaryentry2"
 						}
 					],
 					"__v": 0,
 					"totalPracticed": 30,
 					"shortDescription": "description1",
-					"id": "5b1fdbabc6e9c3d2e8444e64"
+					"id": "abcdefg-1234567"
 				},
 				{
-					"_id": "5b1fdbabc6e9c3d2e8444e67",
+					"_id": "abcdefg-1234567",
 					"title": "piece2",
 					"composer": "composer2",
 					"description": "description2",
 					"instrument": "violin",
-					"user": "5b1fdbabc6e9c3d2e8444e61",
+					"user": "abcdefg-1234567",
 					"startedAt": "2018-05-24",
 					"diary": [
 						{
-							"_id": "5b1fdbabc6e9c3d2e8444e69",
+							"_id": "abcdefg-1234567",
 							"timeLogged": "2018-05-26",
 							"timePracticed": 10,
 							"notes": "diaryentry3",
-							"id": "5b1fdbabc6e9c3d2e8444e69",
+							"id": "abcdefg-1234567",
 							"shortNotes": "diaryentry3"
 						},
 						{
-							"_id": "5b1fdbabc6e9c3d2e8444e68",
+							"_id": "abcdefg-1234567",
 							"timeLogged": "2018-05-25",
 							"timePracticed": 20,
 							"notes": "diaryentry4",
-							"id": "5b1fdbabc6e9c3d2e8444e68",
+							"id": "abcdefg-1234567",
 							"shortNotes": "diaryentry4"
 						}
 					],
 					"__v": 0,
 					"totalPracticed": 30,
 					"shortDescription": "description2",
-					"id": "5b1fdbabc6e9c3d2e8444e67"
+					"id": "abcdefg-1234567"
 				}
 			],
 			"totalPracticed": 60,
@@ -226,7 +226,7 @@ Gets all data for all users. This particular endpoint is mostly for the purposes
 				"composer1": 30,
 				"composer2": 30
 			},
-			"id": "5b1fdbabc6e9c3d2e8444e61"
+			"id": "abcdefg-1234567"
 		},
 		{
 			"instruments": [
@@ -235,43 +235,43 @@ Gets all data for all users. This particular endpoint is mostly for the purposes
 					"playingTime": 0
 				}
 			],
-			"_id": "5b1fdbabc6e9c3d2e8444e62",
+			"_id": "abcdefg-1234567",
 			"email": "b@b",
 			"username": "b",
 			"accountCreated": "2018-05-20",
 			"__v": 0,
 			"pieces": [
 				{
-					"_id": "5b1fdbabc6e9c3d2e8444e6a",
+					"_id": "abcdefg-1234567",
 					"title": "piece3",
 					"composer": "composer3",
 					"description": "description3",
 					"instrument": "violin",
 					"startedAt": "2018-05-24",
-					"user": "5b1fdbabc6e9c3d2e8444e62",
+					"user": "abcdefg-1234567",
 					"diary": [],
 					"__v": 0,
 					"totalPracticed": 0,
 					"shortDescription": "description3",
-					"id": "5b1fdbabc6e9c3d2e8444e6a"
+					"id": "abcdefg-1234567"
 				},
 				{
-					"_id": "5b1fdbabc6e9c3d2e8444e6b",
+					"_id": "abcdefg-1234567",
 					"title": "piece4",
 					"composer": "composer4",
 					"description": "description4",
 					"instrument": "violin",
 					"startedAt": "2018-05-24",
-					"user": "5b1fdbabc6e9c3d2e8444e62",
+					"user": "abcdefg-1234567",
 					"diary": [],
 					"__v": 0,
 					"totalPracticed": 0,
 					"shortDescription": "description4",
-					"id": "5b1fdbabc6e9c3d2e8444e6b"
+					"id": "abcdefg-1234567"
 				}
 			],
 			"totalPracticed": 0,
-			"id": "5b1fdbabc6e9c3d2e8444e62"
+			"id": "abcdefg-1234567"
 		},
 		{
 			"instruments": [
@@ -280,14 +280,14 @@ Gets all data for all users. This particular endpoint is mostly for the purposes
 					"playingTime": 0
 				}
 			],
-			"_id": "5b1fdbabc6e9c3d2e8444e63",
+			"_id": "abcdefg-1234567",
 			"email": "c@c",
 			"username": "c",
 			"accountCreated": "2018-05-20",
 			"__v": 0,
 			"pieces": [],
 			"totalPracticed": 0,
-			"id": "5b1fdbabc6e9c3d2e8444e63"
+			"id": "abcdefg-1234567"
 		}
 	]
 	```
