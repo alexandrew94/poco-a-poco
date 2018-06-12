@@ -2,6 +2,8 @@
 
 ### This is a guide to all the endpoints available in the API for *poco a poco*.
 
+All fields listed under "Data Params" are required unless stated otherwise.
+
 All endpoints except authentication endpoints require the user to be authenticated via a token in the request header. The token value can be acquired by logging in or signing up.
 
 #### Required request header
@@ -19,8 +21,8 @@ Logs you in and gives you the token required for all non-authentication endpoint
 * URL: `/api/login`
 * Method: `POST`
 * Data Params:
-  * `usernameOrEmail: [String]`
-  * `password: [String]`
+  * `usernameOrEmail: 'string'`
+  * `password: 'string'`
 * Success Response:
   * Code: `200 Success`
   * Content:
@@ -68,10 +70,11 @@ Creates your account and gives you the token required for all non-authentication
 * URL: `/api/signup`
 * Method: `POST`
 * Data Params:
-  * `username: [String]` (must be unique)
-  * `email: [String]` (must be unique and have an @)
-  * `password: [String]`
-  * `passwordConfirmation: [String]`
+  * `username: 'string'` (must be unique)
+  * `email: 'string@string'` (must be unique and have an @)
+  * `password: 'string'`
+  * `passwordConfirmation: 'string'`
+  * `instruments: ['string', 'string', 'string']`
 * Success Response:
   * Code: `200 Success`
   * Content:
@@ -112,7 +115,7 @@ Creates your account and gives you the token required for all non-authentication
 
 #### All Users
 
-Gets all data for all users.
+Gets all data for all users. This particular endpoint is mostly for the purposes of getting a quick overview of all the users' data - no request is made to it from the front-end in ordinary use of the app.
 
 * URL: `/api/users`
 * Method: `GET`
