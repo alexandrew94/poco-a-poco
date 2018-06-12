@@ -49,6 +49,7 @@ Logs you in and gives you the token required for all non-authentication endpoint
 		}
 	}
 	```
+	\* Note that `pieces` is not populated here.
 	
 * Error Response:
   * Code: `401 Unauthorized`
@@ -92,6 +93,7 @@ Creates your account and gives you the token required for all non-authentication
 		}
 	}
 	```
+	\* Note that `pieces` is not populated here.
 	
 * Error Response:
   * Code: `422 Unprocessable Entity`
