@@ -26,28 +26,28 @@ Logs you in and gives you the token required for all non-authentication endpoint
   * Content:
 
 	```javascript
-{
-	"message": "Welcome back, Andrew! 😊😊",
-	"token": "some-token-value-1234567890",
-	"user": {
-		"instruments": [
-			{
-				"name": "violin",
-				"playingTime": 10
-			},
-			{
-				"name": "piano",
-				"playingTime": 20
-			}
-		],
-		"_id": "abcdefg-1234567",
-		"email": "someemail@someemail",
-		"username": "Andrew",
-		"accountCreated": "2018-05-20",
-		"pieces": null,
-		"id": "abcdefg-1234567"
+	{
+		"message": "Welcome back, Andrew! 😊😊",
+		"token": "some-token-value-1234567890",
+		"user": {
+			"instruments": [
+				{
+					"name": "violin",
+					"playingTime": 10
+				},
+				{
+					"name": "piano",
+					"playingTime": 20
+				}
+			],
+			"_id": "abcdefg-1234567",
+			"email": "someemail@someemail",
+			"username": "Andrew",
+			"accountCreated": "2018-05-20",
+			"pieces": null,
+			"id": "abcdefg-1234567"
+		}
 	}
-}
 	```
 	
 * Error Response:
@@ -55,9 +55,9 @@ Logs you in and gives you the token required for all non-authentication endpoint
   * Content:
 
 	```javascript
-{
-	"message": "Unauthorized"
-}
+	{
+		"message": "Unauthorized"
+	}
 	```
 
 #### Sign Up
@@ -76,21 +76,21 @@ Creates your account and gives you the token required for all non-authentication
   * Content:
 
 	```javascript
-{
-	"message": "You've successfully registered, Andrew! 👏🎉",
-	"token": "some-token-value-1234567890",
-	"user": {
-		"instruments": [
-			"violin",
-			"piano"
-		],
-		"_id": "abcdefg-1234567",
-		"username": "Andrew",
-		"email": "someemail@someemail",
-		"pieces": null,
-		"id": "abcdefg-1234567"
+	{
+		"message": "You've successfully registered, Andrew! 👏🎉",
+		"token": "some-token-value-1234567890",
+		"user": {
+			"instruments": [
+				"violin",
+				"piano"
+			],
+			"_id": "abcdefg-1234567",
+			"username": "Andrew",
+			"email": "someemail@someemail",
+			"pieces": null,
+			"id": "abcdefg-1234567"
+		}
 	}
-}
 	```
 	
 * Error Response:
