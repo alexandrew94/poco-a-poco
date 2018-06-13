@@ -23,6 +23,7 @@ All endpoints except authentication endpoints require the user to be authenticat
   * [Users Edit](#users-edit)
 * [Pieces](#pieces)
   * [Pieces Index](#pieces-index) 
+  * [Pieces Create](#pieces-create)
 
 ---
 
@@ -709,13 +710,57 @@ Creates a new piece within a given user. It returns the entire user data, includ
   * Code: `422 Unprocessable Entity`
   * Content:
 
-   ```
-   {
-		"message": "Unprocessable Entity",
-		"errors": {
-			"instrument": "Instrument is required",
-			"title": "Title is required"
-	   }
+    ```
+    {
+	 	 "message": "Unprocessable Entity",
+		 "errors": {
+			 "instrument": "Instrument is required",
+			 "title": "Title is required"
+	    }
 	}
 	```
-	 
+	
+#### <a name="pieces-create">Pieces Show</a>
+
+Shows the data for one piece.
+
+* URL: `/api/users/<userid>/pieces/<pieceid>`
+* Method: `GET`
+* Success Response:
+  * Code: `200 Success`
+  * Content:
+
+   ```javascript
+	{
+		"_id": "abcdefg-1234567",
+		"title": "piece1",
+		"composer": "composer1",
+		"description": "description1",
+		"user": "abcdefg-1234567",
+		"instrument": "piano",
+		"startedAt": "2018-05-28",
+		"diary": [
+			{
+				"_id": "abcdefg-1234567",
+				"timeLogged": "2018-05-28",
+				"timePracticed": 10,
+				"notes": "diaryentry1",
+				"id": "abcdefg-1234567",
+				"shortNotes": "diaryentry1"
+			},
+			{
+				"_id": "abcdefg-1234567",
+				"timeLogged": "2018-05-27",
+				"timePracticed": 20,
+				"notes": "diaryentry2",
+				"id": "abcdefg-1234567",
+				"shortNotes": "diaryentry2"
+			}
+		],
+		"__v": 0,
+		"totalPracticed": 30,
+		"shortDescription": "description1",
+		"id": "abcdefg-1234567"
+	}
+	```
+
