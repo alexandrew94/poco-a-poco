@@ -30,7 +30,7 @@ All endpoints except authentication endpoints require the user to be authenticat
 * [Diaries](#diaries)
   * [Diaries Create](#diaries-create)
   * [Diaries Update](#diaries-update)
-  * [Diaries Create](#diaries-create)
+  * [Diaries Delete](#diaries-delete)
 
 ---
 
