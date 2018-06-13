@@ -15,3 +15,9 @@ The app was built using a React.js front-end and a Node.js back-end. I used this
 
 ## Screenshots
 
+![Screenshot 1](./readme-images/screenshot1.png)
+![Screenshot 2](./readme-images/screenshot2.png)
+![Screenshot 3](./readme-images/screenshot3.png)
+![Screenshot 4](./readme-images/screenshot4.png)
+![Screenshot 5](./readme-images/screenshot5.png)
+![Screenshot 6](./readme-images/screenshot6.png)
