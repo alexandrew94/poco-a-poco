@@ -34,7 +34,6 @@ class diariesCreate extends React.Component {
         this.state.newEntry,
         { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(() => {
-        console.log(this.state.newEntry);
         Flash.setMessage('success', '✅ Log created!');
         this.props.displayFlashMessages();
         this.closeExpandedMode();
