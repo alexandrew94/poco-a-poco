@@ -25,6 +25,12 @@ All endpoints except authentication endpoints require the user to be authenticat
   * [Pieces Index](#pieces-index) 
   * [Pieces Create](#pieces-create)
   * [Pieces Show](#pieces-show)
+  * [Pieces Update](#pieces-update)
+  * [Pieces Delete](#pieces-delete)
+* [Diaries](#diaries)
+  * [Diaries Create](#diaries-create)
+  * [Diaries Update](#diaries-update)
+  * [Diaries Create](#diaries-create)
 
 ---
 
@@ -835,3 +841,90 @@ Deletes one piece.
 	}
 	```
 
+## <a name="diaries">Diaries</a>
+
+Diaries are used to log the practice progress for each piece.
+
+#### <a name="diaries-create">Diaries Create</a>
+
+* URL: `/api/users/<userid>/pieces/<pieceid>/diary`
+* Method: `POST`
+* Data Params:
+  * `timePracticed: number` (amount of time practiced in minutes)
+  * `timeLogged: '00-00-00'` (date string in DD-MM-YY format)
+  * `notes: 'string'` (optional)
+* Success Response:
+  * Code: `201 Created`
+  * Content:
+
+   ```javascript
+	{
+		"_id": "abcdefg-1234567",
+		"title": "piece1",
+		"composer": "composer1",
+		"description": "description1",
+		"user": "abcdefg-1234567",
+		"instrument": "piano",
+		"startedAt": "2018-05-28",
+		"diary": [
+			{
+				"_id": "abcdefg-1234567",
+				"timeLogged": "2018-05-28",
+				"timePracticed": 10,
+				"notes": "diaryentry1",
+				"id": "abcdefg-1234567",
+				"shortNotes": "diaryentry1"
+			},
+			{
+				"_id": "abcdefg-1234567",
+				"timeLogged": "2018-05-27",
+				"timePracticed": 20,
+				"notes": "diaryentry2",
+				"id": "abcdefg-1234567",
+				"shortNotes": "diaryentry2"
+			}
+		],
+		"__v": 0,
+		"totalPracticed": 30,
+		"shortDescription": "description1",
+		"id": "abcdefg-1234567"
+	}
+	```
+	(Returns all the data for the piece the diary has been added to)
+
+#### <a name="diaries-update">Diaries Update</a>
+
+* URL: `/api/users/<userid>/pieces/<pieceid>/diary/<diaryid>`
+* Method: `PUT`
+* Data Params:
+  * `timePracticed: number` (amount of time practiced in minutes)
+  * `timeLogged: '00-00-00'` (date string in DD-MM-YY format)
+  * `notes: 'string'` (optional)
+* Success Response:
+  * Code: `200 Success`
+  * Content:
+
+   ```javascript
+	{
+		"_id": "abcdefg-1234567",
+		"timePracticed": 10,
+		"timeLogged": "00-00-00",
+		"notes": "diary-entry",
+		"id": "abcdefg-1234567",
+		"shortNotes": "diary-entry"
+	}
+	```
+	
+#### <a name="diaries-delete">Diaries Delete</a>
+
+* URL: `/api/users/<userid>/pieces/<pieceid>/diary/<diaryid>`
+* Method: `DELETE`
+* Success Response:
+  * Code: `204 No Content`
+  * Content:
+
+   ```javascript
+	{
+		"message": "Deletion successful!"
+	}
+	```
