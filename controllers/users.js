@@ -33,6 +33,7 @@ function update(req, res, next) {
       return newUser.save();
     })
     .then(newUser => {
+      console.log(newUser);
       res.json(newUser);
     })
     .catch(next);

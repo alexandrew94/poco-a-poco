@@ -48,6 +48,7 @@ class Profile extends React.Component {
         { headers: { Authorization: `Bearer ${Auth.getToken()}` }
         })
       .then(() => {
+        console.log(this.state.editedUser);
         this.props.history.push('/profile');
         this.props.editingProfileFalse();
       })

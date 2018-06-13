@@ -20,10 +20,15 @@ All endpoints except authentication endpoints require the user to be authenticat
 * [Users](#users)
   * [Users Index](#users-index)
   * [Users Show](#users-show)
+  * [Users Edit](#users-edit)
+* [Pieces](#pieces)
+  * [Pieces Index](#pieces-index) 
 
 ---
 
 ## <a name="authentication">Authentication</a>
+
+Accessing all resource endpoints requires authentication and a token. Each session expires after 6 hours.
 
 #### <a name="login">Login</a>
 
@@ -85,7 +90,7 @@ Creates your account and gives you the token required for all non-authentication
   * `email: 'string@string'` (must be unique and have an @)
   * `password: 'string'`
   * `passwordConfirmation: 'string'`
-  * `instruments: ['string', 'string', 'string']` (must at least have 1 instrument)
+  * `instruments: [ { name: 'string' }, { name: 'string' } ]` (must have length of at least 1)
 * Success Response:
   * Code: `200 Success`
   * Content:
@@ -123,6 +128,8 @@ Creates your account and gives you the token required for all non-authentication
 	```
 	
 ## <a name="users">Users</a>
+
+Endpoints are available for indexing, showing and editing user resources.
 
 #### <a name="users-index">All Users</a>
 
@@ -295,7 +302,7 @@ Gets all data for all users. This particular endpoint is mostly for the purposes
 	
 #### <a name="users-show">Users Show</a>
 
-Shows all the data for a single user, giving more detailed practice data - the `practiceLog` and the `composersLog` for each user.
+Like the Users Index, but showing all the data for a single user. Here is a user with 2 instruments, 2 pieces and 2 practice diary entries inside of each piece.
 
 * URL: `/api/users/<userid>`
 * Method: `GET`
@@ -398,3 +405,317 @@ Shows all the data for a single user, giving more detailed practice data - the `
 		"id": "abcdefg-1234567"
 	}
 	```
+
+#### <a name="users-edit">Users Edit</a>
+
+Returns an edited user. Note that editing a user will also update the user's `instruments`. It returns the same data as the Users Show endpoint, with the updated user.
+
+* URL: `/api/users/<userid>/edit`
+* Method: `PUT`
+* Data Params:
+  * `username: 'string'`
+  * `email: 'string@string'` 
+  * ```instruments: [ { name: 'string', playingTime: number }, { name: 'string', playingTime: number } ]```
+* Success Response:
+  * Code: `200 Success`
+  * Content:
+
+	```javascript
+	{
+		"instruments": [
+			{
+				"name": "violin",
+				"playingTime": 30
+			},
+			{
+				"name": "piano",
+				"playingTime": 30
+			}
+		],
+		"_id": "abcdefg-1234567",
+		"email": "a@a",
+		"username": "a",
+		"accountCreated": "2018-05-20",
+		"__v": 0,
+		"pieces": [
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece1",
+				"composer": "composer1",
+				"description": "description1",
+				"user": "abcdefg-1234567",
+				"instrument": "piano",
+				"startedAt": "2018-05-28",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-28",
+						"timePracticed": 10,
+						"notes": "diaryentry1",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry1"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-27",
+						"timePracticed": 20,
+						"notes": "diaryentry2",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry2"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description1",
+				"id": "abcdefg-1234567"
+			},
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece2",
+				"composer": "composer2",
+				"description": "description2",
+				"instrument": "violin",
+				"user": "abcdefg-1234567",
+				"startedAt": "2018-05-24",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-26",
+						"timePracticed": 10,
+						"notes": "diaryentry3",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry3"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-25",
+						"timePracticed": 20,
+						"notes": "diaryentry4",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry4"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description2",
+				"id": "abcdefg-1234567"
+			}
+		],
+		"totalPracticed": 60,
+		"practiceLog": {
+			"2018-05-28": 10,
+			"2018-05-27": 20,
+			"2018-05-26": 10,
+			"2018-05-25": 20
+		},
+		"composersLog": {
+			"composer1": 30,
+			"composer2": 30
+		},
+		"id": "abcdefg-1234567"
+	}
+	```
+
+## <a name="pieces">Pieces</a>
+
+#### <a name="pieces-index">Pieces Index</a>
+
+An index of all the pieces for a given user.
+
+* URL: `/api/users/<userid>/pieces`
+* Method: `GET`
+* Success Response:
+  * Code: `200 Success`
+  * Content:
+
+	```javascript
+	[
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece1",
+				"composer": "composer1",
+				"description": "description1",
+				"user": "abcdefg-1234567",
+				"instrument": "piano",
+				"startedAt": "2018-05-28",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-28",
+						"timePracticed": 10,
+						"notes": "diaryentry1",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry1"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-27",
+						"timePracticed": 20,
+						"notes": "diaryentry2",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry2"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description1",
+				"id": "abcdefg-1234567"
+			},
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece2",
+				"composer": "composer2",
+				"description": "description2",
+				"instrument": "violin",
+				"user": "abcdefg-1234567",
+				"startedAt": "2018-05-24",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-26",
+						"timePracticed": 10,
+						"notes": "diaryentry3",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry3"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-25",
+						"timePracticed": 20,
+						"notes": "diaryentry4",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry4"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description2",
+				"id": "abcdefg-1234567"
+			}
+	]
+	```
+	
+#### <a name="pieces-create">Pieces Create</a>
+
+Creates a new piece within a given user. It returns the entire user data, including the new piece.
+
+* URL: `/api/users/<userid>/pieces`
+* Method: `POST`
+* Data Params:
+  * `title: 'string'` 
+  * `composer: 'string'` (optional)
+  * `decription: 'string'` (optional)
+  * `instrument: 'string'`
+* Success Response:
+  * Code: `200 Success`
+  * Content:
+
+	```javascript
+	{
+		"instruments": [
+			{
+				"name": "violin",
+				"playingTime": 30
+			},
+			{
+				"name": "piano",
+				"playingTime": 30
+			}
+		],
+		"_id": "abcdefg-1234567",
+		"email": "a@a",
+		"username": "a",
+		"accountCreated": "2018-05-20",
+		"__v": 0,
+		"pieces": [
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece1",
+				"composer": "composer1",
+				"description": "description1",
+				"user": "abcdefg-1234567",
+				"instrument": "piano",
+				"startedAt": "2018-05-28",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-28",
+						"timePracticed": 10,
+						"notes": "diaryentry1",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry1"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-27",
+						"timePracticed": 20,
+						"notes": "diaryentry2",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry2"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description1",
+				"id": "abcdefg-1234567"
+			},
+			{
+				"_id": "abcdefg-1234567",
+				"title": "piece2",
+				"composer": "composer2",
+				"description": "description2",
+				"instrument": "violin",
+				"user": "abcdefg-1234567",
+				"startedAt": "2018-05-24",
+				"diary": [
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-26",
+						"timePracticed": 10,
+						"notes": "diaryentry3",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry3"
+					},
+					{
+						"_id": "abcdefg-1234567",
+						"timeLogged": "2018-05-25",
+						"timePracticed": 20,
+						"notes": "diaryentry4",
+						"id": "abcdefg-1234567",
+						"shortNotes": "diaryentry4"
+					}
+				],
+				"__v": 0,
+				"totalPracticed": 30,
+				"shortDescription": "description2",
+				"id": "abcdefg-1234567"
+			}
+		],
+		"totalPracticed": 60,
+		"practiceLog": {
+			"2018-05-28": 10,
+			"2018-05-27": 20,
+			"2018-05-26": 10,
+			"2018-05-25": 20
+		},
+		"composersLog": {
+			"composer1": 30,
+			"composer2": 30
+		},
+		"id": "abcdefg-1234567"
+	}
+	```
+* Error Response
+  * Code: `422 Unprocessable Entity`
+  * Content:
+
+   ```
+   {
+		"message": "Unprocessable Entity",
+		"errors": {
+			"instrument": "Instrument is required",
+			"title": "Title is required"
+	   }
+	}
+	```
+	 

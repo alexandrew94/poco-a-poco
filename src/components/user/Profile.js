@@ -80,6 +80,7 @@ class Profile extends React.Component {
     axios
       .post(`/api/users/${Auth.getPayload().sub}/pieces`, this.state.newPiece, { headers: { Authorization: `Bearer ${Auth.getToken()}` }})
       .then(res => {
+        console.log(this.state.newPiece);
         Flash.setMessage('success', '✅ Piece created!');
         this.props.displayFlashMessages();
         this.setState({ createMode: false, pieces: res.data.pieces });
