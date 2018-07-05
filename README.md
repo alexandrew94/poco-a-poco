@@ -1,11 +1,13 @@
 # poco a poco
+(1 week individual project)
 ---
 
 ![Image of Landing Page](./readme-images/landing-page.png)
 
-## API
+## Links
 
-* [Link to API Documentation](API.md)
+* [Heroku](https://poco-a-poco.herokuapp.com/)
+* [API Documentation](API.md)
 
 ## Description
 
@@ -109,3 +111,9 @@ module.exports = {
 ```
 
 In order for the data to be stored meaningfully, it was important that each time the user inputted the name of a composer, it was spelled and formatted consistently - for instance, if the user typed `mozart`, it would be useful if it was consistently autocorrected to `Wolfgang Amadeus Mozart` to prevent confusion. To do this I made use of the Wikimedia API, which has a feature whereby incorrectly spelled article titles are redirected to the correctly spelled ones. This was done through a proxy via the backend, where the user could input anything, and if there was a Wikipedia article titled with a more correctly spelled version of that thing, the app would suggest that instead.
+
+## Challenges
+
+*Challenge 1: UI/UX design*
+
+At the very beginning of the project, I had decided that the whole app should take place on a single URL, which I felt would make the app feel more app-like rather than website-like. This meant placing a lot of the functionality in modals, such as when a user views a piece, adds a piece or adds a diary entry. Until I saw someone else use the app, I hadn't realized how unintuitive this could be - it meant that the user sometimes had to scroll excessively on the single page, and it meant that the user sometimes had to do complex work in a relatively small modal. I feel as though if I were to significantly reorganize the UI I would probably try to make better use of things like tabs, pagination and menus rather than having a lot of the navigation be scrolling.
