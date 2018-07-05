@@ -1,6 +1,6 @@
 # poco a poco
-(1 week individual project)
 ---
+(1 week individual project)
 
 ![Image of Landing Page](./readme-images/landing-page.png)
 
@@ -144,3 +144,5 @@ _Win 2: Chart.js_
 I was surprised by how much incorporating graphs and charts into my app improved how it looked and how useful it was. It took quite a bit of reading documentation, fishing around for the right library, and manipulating my data to suit the way Chart.js would accept it, but I felt like the charts were what made the app really special. As I have discovered, Chart.js, which in turn is built on D3, is very elegant and customizable, which will make it really useful for any future projects of this kind I might do.
 
 ## The Future
+
+Of all the projects I have done at GA, I feel that this is my strongest. With two developer friends, I am planning to take this project further through more complex gamification and potentially a “teacher portal” feature where a music teacher can log in to monitor their students’ progress. I am also thinking of expanding it into including a native mobile app, and to that end I am learning React-Native, where I am thinking of first building a small game to practice before delving into this full-on.
