@@ -14,7 +14,6 @@ class AuthLogin extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
     axios
       .post('/api/login', this.state)
       .then(res => {

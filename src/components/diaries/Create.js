@@ -63,7 +63,6 @@ class diariesCreate extends React.Component {
   handleTimePracticedAddition = e => {
     e.preventDefault();
     const newTimePracticed = this.state.newEntry.timePracticed + parseInt(e.target.value);
-    console.log(parseInt(e.target.value));
     this.setState({ ...this.state, newEntry: { ...this.state.newEntry, timePracticed: newTimePracticed }});
   }
 
