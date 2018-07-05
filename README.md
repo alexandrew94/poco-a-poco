@@ -59,7 +59,7 @@ Screen for inputting practice log data for each piece:
 
 Here are some of the code snippets in this project that I found the most challenging to write.
 
-*Example 1: A Mongoose virtual on the user model.*
+_Example 1: A Mongoose virtual on the user model._
 ```javascript
 userSchema
   .virtual('composersLog')
@@ -82,7 +82,7 @@ userSchema
 
 In the back end model for the user resource, I made extensive use of virtuals in order to process data that the front end could display that had no reason to be stored in the database anywhere. This virtual in particular was one of the more complex to write, since it required a double `forEach()` to iterate over some arrays inside of an array. Essentially, this was necessary because the `composer` was stored on `user.piece.composer`, whilst the time logged for each piece was stored on `user.piece.diaryEntry.timePracticed`, which required extraction of the data from within the diary entry in order to sum it.
 
-*Example 2: An 'autocorrect' feature.*
+_Example 2: An 'autocorrect' feature._
 
 Front end:
 ```javascript
@@ -125,21 +125,21 @@ In order for the data to be stored meaningfully, it was important that each time
 
 ## Challenges
 
-*Challenge 1: UI/UX design*
+_Challenge 1: UI/UX design_
 
 At the very beginning of the project, I had decided that the whole app should take place on a single URL, which I felt would make the app feel more app-like rather than website-like. This meant placing a lot of the functionality in modals, such as when a user views a piece, adds a piece or adds a diary entry. Until I saw someone else use the app, I hadn't realized how unintuitive this could be - it meant that the user sometimes had to scroll excessively on the single page, and it meant that the user sometimes had to do complex work in a relatively small modal. I feel as though if I were to significantly reorganize the UI I would probably try to make better use of things like tabs, pagination and menus rather than having a lot of the navigation be just scrolling.
 
-*Challenge 2: Responsiveness*
+_Challenge 2: Responsiveness_
 
 Regrettably, by the end of the week-long project period, I had run out of time to make the app responsive for tablet and mobile. On the whole, the SASS for the app could have been better organized: instead of having to constantly overwrite BULMA's default values on a case-by-case basis, it probably would've been more beneficial to plan out ahead of time and redefine BULMA's variables to suit the styling I wanted at the start and not have to constantly make styling decisions along the way for each tiny thing. I'd actually done almost no styling at all until about 3 days before the end of the project, when the app became so difficult to physically navigate that it was actually slowing down my progress.
 
 ## Wins
 
-*Win 1: Complex Data Structures*
+_Win 1: Complex Data Structures_
 
 Possibly the single most complex part of this project was manipulating the back end's data structures. I had three resources, one of which was embedded inside another. My ideal was to have the user only input very little data, but get a lot of useful analysis in return.
 
-*Win 2: Chart.js*
+_Win 2: Chart.js_
 
 I was surprised by how much incorporating graphs and charts into my app improved how it looked and how useful it was. It took quite a bit of reading documentation, fishing around for the right library, and manipulating my data to suit the way Chart.js would accept it, but I felt like the charts were what made the app really special. As I have discovered, Chart.js, which in turn is built on D3, is very elegant and customizable, which will make it really useful for any future projects of this kind I might do.
 
