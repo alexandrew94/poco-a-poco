@@ -41,3 +41,30 @@ Mini 'dashboard' showing the user's recent progress on each piece:
 
 Screen for inputting practice log data for each piece:
 ![Screenshot 5](./readme-images/screenshot5.png)
+
+## Code Examples
+
+Here are some of the code snippets in this project that I found the most challenging to write.
+
+*Example 1: A Mongoose virtual on the user model.*
+```javascript
+userSchema
+  .virtual('composersLog')
+  .get(function () {
+    const composersLogObject = {};
+    if(this.pieces) {
+      this.pieces.forEach(piece => {
+        piece.diary.forEach(diaryEntry => {
+          if (Object.keys(composersLogObject).includes(piece.composer)) {
+            composersLogObject[piece.composer] += diaryEntry.timePracticed;
+          } else {
+            composersLogObject[piece.composer] = diaryEntry.timePracticed;
+          }
+        });
+      });
+      return composersLogObject;
+    }
+  });
+```
+
+In the model for the user resource, I made extensive use of virtuals in order to process data that the front end could display that had no reason to be stored in the database anywhere. This virtual in particular was one of the more complex to write, since it required a double `forEach()` to iterate over some arrays inside of an array. Essentially, this was necessary because the `composer` was stored on `user.piece.composer`, whilst the time logged for each piece was stored on `user.piece.diaryEntry.timePracticed`, which required extraction of the data from within the diary entry in order to sum it.
