@@ -15,17 +15,29 @@ The app was built using a React.js front-end and a Node.js back-end. I used this
 
 ## Technologies Used
 
-* React.js
-* Node.js
-* CSS (with SASS and Bulma)
+* ReactJS
+* Node.js (with Express)
+* MongoDB (with Mongoose)
+* CSS3 (with SASS and BULMA)
 * Chart.js
 * Moment.js
 
 ## Screenshots
 
+Main user dashboard:
 ![Screenshot 1](./readme-images/screenshot1.png)
+
+Logs of the user's recent activity:
 ![Screenshot 2](./readme-images/screenshot2.png)
+
+List of the user's pieces:
 ![Screenshot 3](./readme-images/screenshot3.png)
+
+Edit page for updating the user:
 ![Screenshot 4](./readme-images/screenshot4.png)
-![Screenshot 5](./readme-images/screenshot5.png)
+
+Mini 'dashboard' showing the user's recent progress on each piece:
 ![Screenshot 6](./readme-images/screenshot6.png)
+
+Screen for inputting practice log data for each piece:
+![Screenshot 5](./readme-images/screenshot5.png)
