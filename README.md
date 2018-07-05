@@ -67,4 +67,45 @@ userSchema
   });
 ```
 
-In the model for the user resource, I made extensive use of virtuals in order to process data that the front end could display that had no reason to be stored in the database anywhere. This virtual in particular was one of the more complex to write, since it required a double `forEach()` to iterate over some arrays inside of an array. Essentially, this was necessary because the `composer` was stored on `user.piece.composer`, whilst the time logged for each piece was stored on `user.piece.diaryEntry.timePracticed`, which required extraction of the data from within the diary entry in order to sum it.
+In the back end model for the user resource, I made extensive use of virtuals in order to process data that the front end could display that had no reason to be stored in the database anywhere. This virtual in particular was one of the more complex to write, since it required a double `forEach()` to iterate over some arrays inside of an array. Essentially, this was necessary because the `composer` was stored on `user.piece.composer`, whilst the time logged for each piece was stored on `user.piece.diaryEntry.timePracticed`, which required extraction of the data from within the diary entry in order to sum it.
+
+*Example 2: An 'autocorrect' feature.*
+
+Front end:
+```javascript
+handleChange = ({ target: { name, value } }) => {
+  this.setState({ editedPiece: { ...this.state.piece, [name]: value }});
+  if (name === 'composer' && value) {
+    const formattedValue = value.split(' ').join('%20');
+    axios
+      .get(`/api/wikimedia/composers/${formattedValue}`)
+      .then(res => {
+        if (res.data.query.redirects) {
+          this.setState({ editedPiece: { ...this.state.editedPiece, suggestedComposer: res.data.query.redirects[0].to}});
+        } else {
+          this.setState({ editedPiece: { ...this.state.editedPiece, suggestedComposer: '' }});
+        }
+      });
+  }
+}
+```
+
+Back end:
+```javascript
+const axios = require('axios');
+
+function composers(req, res, next) {
+  axios
+    .get(`https://en.wikipedia.org/w/api.php?action=query&format=json&titles=${req.params.name}&redirects=1`)
+    .then(data => {
+      return res.json(data.data);
+    })
+    .catch(next);
+}
+
+module.exports = {
+  composers
+};
+```
+
+In order for the data to be stored meaningfully, it was important that each time the user inputted the name of a composer, it was spelled and formatted consistently - for instance, if the user typed `mozart`, it would be useful if it was consistently autocorrected to `Wolfgang Amadeus Mozart` to prevent confusion. To do this I made use of the Wikimedia API, which has a feature whereby incorrectly spelled article titles are redirected to the correctly spelled ones. This was done through a proxy via the backend, where the user could input anything, and if there was a Wikipedia article titled with a more correctly spelled version of that thing, the app would suggest that instead.
