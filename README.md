@@ -7,7 +7,13 @@
 ## Table of Contents
 
 * [Links](#links)
+* [Description](#description)
 * [Technologies Used](#technologies-used)
+* [Screenshots](#screenshots)
+* [Code Examples](#code-examples)
+* [Challenges](#challenges)
+* [Wins](#wins)
+* [The Future](#the-future)
 
 ## Links
 
@@ -20,7 +26,7 @@ As a former music student, I am painfully aware of how frustrating practicing ca
 
 The app was built using a React.js front-end and a Node.js back-end. I used this project as an opportunity to explore data manipulation in-depth, especially with regards to the use of back-end endpoints and how the back-end should serve the data for the many different ways it is to be displayed and/or visualised in the front-end. I chose Chart.js as a data visualisation library, and found it to be robust and a great visual addition to the app. In order to improve the UX, I also made use of the Wikimedia API for an “autocorrect” feature and Moment.js for date manipulation.
 
-## Technologies Used <a href="technologies-used"></a>
+## Technologies Used
 
 * ReactJS
 * Node.js (with Express)
