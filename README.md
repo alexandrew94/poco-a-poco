@@ -17,7 +17,7 @@
 
 ## Links
 
-* [Heroku](https://poco-a-poco.herokuapp.com/)
+* [Heroku](https://poco-a-poco.herokuapp.com/) (Login with username *b* and password *b* to try using the app.)
 * [API Documentation](API.md)
 
 ## Description
